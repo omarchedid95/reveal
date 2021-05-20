@@ -1,0 +1,11 @@
+.nav-wrapper {
+    height: 120px;
+    position: sticky;
+    z-index: 1;
+    top: 0px;
+    display: flex;
+    align-items: center;
+}
+.nav-wrapper .title-section {
+    width: 300px;
+}

@@ -1,0 +1,5 @@
+.app-component-wrapper {
+  min-height: 100vh;
+  position: relative;
+  background-color: red;
+}
