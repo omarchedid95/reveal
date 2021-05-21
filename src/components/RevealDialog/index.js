@@ -1,18 +1,37 @@
 import { Button, Dialog, DialogActions, DialogContent, useTheme, useMediaQuery, DialogTitle, Typography, Divider, Slide, Paper, TextField } from '@material-ui/core'
 import React from 'react'
 import Carousel from 'react-material-ui-carousel';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { setEditedReveal } from '../../redux/actions/profile/actions';
 import './index.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function RevealDialog(props) {
+function RevealDialog(props) {
+    const editedReveal = props.editedReveal;
+    let reveal;
+    if (editedReveal === undefined) {
+        reveal = {
+            number: -1,
+            time: -1,
+            prompt: 'prompt',
+            answer: 'answer'
+        }
+    } else {
+        reveal = props.reveals[editedReveal];
+    }
     const theme = useTheme();
     const onMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const closeDialog = () => {
+        props.setEditedReveal(undefined);
+    }
     return (
         <Dialog
-            open={props.open}
+            open={editedReveal !== undefined}
             TransitionComponent={Transition}
             fullWidth={!onMobile}
             fullScreen={onMobile}
@@ -22,14 +41,14 @@ export default function RevealDialog(props) {
                 onMobile &&
                 <DialogActions>
                     <div className='actions-wrapper-mobile'>
-                        <Button onClick={props.toggleDialog} className='cancel-button' color='secondary'>Cancel</Button>
-                        <Button onClick={props.toggleDialog} className='save-button' color='primary'>Save</Button>
+                        <Button onClick={closeDialog} className='cancel-button' color='secondary'>Cancel</Button>
+                        <Button onClick={closeDialog} className='save-button' color='primary'>Save</Button>
                     </div>
                 </DialogActions>
             }
             <DialogTitle disableTypography>
                 <Typography variant='h4' align='center'>
-                    {props.revealTime} minute reveal
+                    {reveal.time} minute reveal
                 </Typography>
                 <Divider />
             </DialogTitle>
@@ -71,10 +90,41 @@ export default function RevealDialog(props) {
             {
                 !onMobile &&
                 <DialogActions>
-                    <Button onClick={props.toggleDialog}>Cancel</Button>
-                    <Button onClick={props.toggleDialog}>Save</Button>
+                    <Button onClick={closeDialog}>Cancel</Button>
+                    <Button onClick={closeDialog}>Save</Button>
                 </DialogActions>
             }
         </Dialog>
     )
 }
+RevealDialog.propTypes = {
+    reveals: PropTypes.arrayOf(PropTypes.shape({
+        number: PropTypes.number.isRequired,
+        time: PropTypes.number.isRequired,
+        prompt: PropTypes.string.isRequired,
+        answer: PropTypes.string.isRequired
+    })).isRequired,
+    editedReveal: PropTypes.number
+}
+RevealDialog.defaultProps = {
+    reveals: [{
+        number: -1,
+        time: -1,
+        prompt: 'prompt',
+        answer: 'answer'
+    }],
+    editedReveal: undefined
+}
+const mapStateToProps = (state) => {
+    return {
+        reveals: state.profile.reveals,
+        editedReveal: state.profile.editedReveal,
+        availableReveals: []
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setEditedReveal: (revealNumber) => dispatch(setEditedReveal(revealNumber))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(RevealDialog);

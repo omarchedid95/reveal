@@ -1,13 +1,16 @@
 import { Avatar, Badge, Divider, Typography, Grid } from '@material-ui/core';
 import React, { Component } from 'react'
-// import ProfilePic from '../../img/Profile.jpeg';
 import Reveal from '../Reveal';
+import RevealDialog from '../RevealDialog';
+import { connect } from 'react-redux';
 import './index.css';
 
-export default class ProfilePage extends Component {
+class ProfilePage extends Component {
     render() {
+        const reveals = this.props.reveals;
         return (
             <div className='profile-page-component-wrapper'>
+                <RevealDialog />
                 <Typography variant='h4' className='page-title'>Profile</Typography>
                 <Divider />
                 <section className='profile-section'>
@@ -27,16 +30,16 @@ export default class ProfilePage extends Component {
                 <section className='reveal-section'>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={6}>
-                        <Reveal revealTime={1} />
+                        <Reveal reveal={reveals[0]} />
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <Reveal revealTime={2} />
+                        <Reveal reveal={reveals[1]} />
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <Reveal revealTime={3} />
+                        <Reveal reveal={reveals[2]} />
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <Reveal revealTime={4} />
+                        <Reveal reveal={reveals[3]} />
                       </Grid>
                     </Grid>
                 </section>
@@ -44,3 +47,9 @@ export default class ProfilePage extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+  return {
+      reveals: state.profile.reveals
+  }
+}
+export default connect(mapStateToProps, null)(ProfilePage);

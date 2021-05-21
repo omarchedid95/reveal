@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Store from './redux/store';
+import { Provider } from 'react-redux';
 import '@fontsource/roboto';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -11,7 +13,9 @@ ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
     <Router>
-      <App />
+      <Provider store={Store}>
+        <App />
+      </Provider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
