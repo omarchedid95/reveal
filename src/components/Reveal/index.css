@@ -1,0 +1,29 @@
+.reveal-component-wrapper {
+    display: block;
+    margin: 24px;
+    min-height: 200px;
+}
+.reveal-component-wrapper header {
+    position: relative;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.reveal-component-wrapper header .title-container {
+    flex-grow: 1;
+}
+.reveal-component-wrapper header .edit-container {
+    flex: 0 0 40px;
+}
+.reveal-component-wrapper main {
+    display: flex;
+    flex-direction: column;
+
+}
+.reveal-component-wrapper main .reveal-time {
+    margin: 24px auto 16px auto;
+}
+.reveal-component-wrapper .reveal-content-section {
+    padding: 16px;
+}

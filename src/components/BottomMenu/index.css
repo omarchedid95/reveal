@@ -1,5 +1,5 @@
 .bottom-menu-component-wrapper {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }

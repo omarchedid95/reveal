@@ -1,0 +1,56 @@
+/* Desktop */
+.reveal-dialog-component-wrapper .carousel-section {
+    height: 400px;
+    margin-top: 24px;
+}
+.reveal-dialog-component-wrapper .carousel-section .carousel{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.reveal-dialog-component-wrapper .carousel-section .carousel .carousel-item {
+    margin: auto;
+    padding: 80px;
+    display: flex;
+    align-items: center;
+}
+.reveal-dialog-component-wrapper .answer-textfield {
+    margin: 0px 0px 32px 0px;
+}
+/* Mobile */
+.reveal-dialog-component-wrapper .carousel-section-mobile {
+    height: 350px;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+.reveal-dialog-component-wrapper .carousel-section-mobile .carousel-mobile {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.reveal-dialog-component-wrapper .carousel-section-mobile .carousel-mobile .carousel-item-mobile {
+    margin: auto;
+    padding: 80px;
+    display: flex;
+    align-items: center;
+}
+.reveal-dialog-component-wrapper .actions-wrapper-mobile {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 24px 0px 24px 0px;
+    position: relative;
+}
+.reveal-dialog-component-wrapper .actions-wrapper-mobile .cancel-button {
+    position: absolute;
+    left: 0;
+}
+.reveal-dialog-component-wrapper .actions-wrapper-mobile .save-button {
+    position: absolute;
+    right: 0;
+}

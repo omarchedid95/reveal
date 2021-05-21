@@ -1,0 +1,20 @@
+.profile-page-component-wrapper .page-title {
+    padding: 0px 0px 0px 16px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+.profile-page-component-wrapper .profile-section {
+    padding: 56px 0px 32px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.profile-page-component-wrapper .profile-section .avatar {
+    height: 200px;
+    width: 200px;
+}
+.profile-page-component-wrapper .reveal-section {
+    padding: 0px 0px 56px 0px;
+}
