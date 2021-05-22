@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, useTheme, useMediaQuery, DialogTitle, Typography, Divider, Slide, Paper, TextField, Hidden } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, Divider, Slide, Paper, TextField, Hidden } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
 import { connect } from 'react-redux';
 import { updateReveal } from '../../redux/actions/profile/actions';
 import PropTypes from 'prop-types';
+import { withMediaQuery } from '../HOC';
 import './index.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-
-// Get access to media query hook throughHOC Hook
-export const withMediaQuery = Component => props => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-    return <Component isMobile={isMobile} {...props} />
-}
 
 class RevealDialog extends Component {
     state = {
