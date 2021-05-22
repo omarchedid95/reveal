@@ -218,6 +218,15 @@ class RevealDialog extends Component {
     }
 }
 RevealDialog.propTypes = {
+    open: PropTypes.bool.isRequired,
+    toggleDialog: PropTypes.func.isRequired,
+    reveal: PropTypes.shape({
+        number: PropTypes.number.isRequired,
+        time: PropTypes.number.isRequired,
+        prompt: PropTypes.string.isRequired,
+        answer: PropTypes.string.isRequired
+    }),
+    prompts: PropTypes.arrayOf(PropTypes.string).isRequired,
     reveals: PropTypes.arrayOf(
         PropTypes.shape({
           number: PropTypes.number.isRequired,
@@ -226,9 +235,17 @@ RevealDialog.propTypes = {
           answer: PropTypes.string.isRequired
         })
     ).isRequired,
-    prompts: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 RevealDialog.defaultProps = {
+    open: false,
+    toggleDialog: () => {},
+    reveal: {
+        number: 0,
+        time: -1,
+        prompt: 'prompt',
+        answer: 'answer'
+    },
+    prompts: ['default prompt'],
     reveals: [
         {
           number: 0,
@@ -254,8 +271,7 @@ RevealDialog.defaultProps = {
           prompt: 'prompt',
           answer: 'answer'
         }
-    ],
-    prompts: ['default prompt']
+    ]
 }
 const mapStateToProps = (state) => {
     return {
