@@ -1,22 +1,34 @@
+import React, { Component } from 'react';
 import { Chip, Card, Divider, IconButton, Typography } from '@material-ui/core'
-import React, { Component } from 'react'
 import EditIcon from '@material-ui/icons/Edit';
-import './index.css';
+import RevealDialog from '../RevealDialog';
 import PropTypes from 'prop-types';
-import { setEditedReveal } from '../../redux/actions/profile/actions';
-import { connect } from 'react-redux';
-
+import './index.css';
 class Reveal extends Component {
+    state = {
+        openEditDialog: false
+    }
+    toggleDialog = () => {
+        this.setState((state) => ({
+            openEditDialog: !state.openEditDialog
+        }));
+    }
     render() {
         const reveal = this.props.reveal;
         return (
             <Card className='reveal-component-wrapper'>
+                <RevealDialog
+                    open={this.state.openEditDialog}
+                    toggleDialog={this.toggleDialog}
+                    reveal={reveal}
+                    prompts={this.props.prompts}
+                />
                 <header>
                     <div className='title-container'>
                         <Typography variant='h6' align='center'>{reveal.prompt}</Typography>
                     </div>
                     <div className='edit-container'>
-                        <IconButton onClick={() => this.props.setEditedReveal(reveal.number)}>
+                        <IconButton onClick={this.toggleDialog}>
                             <EditIcon />
                         </IconButton>
                     </div>
@@ -53,9 +65,4 @@ Reveal.defaultProps = {
         answer: 'answer'
     }
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setEditedReveal: (revealNumber) => dispatch(setEditedReveal(revealNumber))
-    }
-}
-export default connect(null, mapDispatchToProps)(Reveal);
+export default Reveal;

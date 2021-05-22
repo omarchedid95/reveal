@@ -26,21 +26,23 @@ let initialState = {
             prompt: '',
             answer: ''
         }
-    ],
-    editedReveal: undefined
+    ]
 }
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case actionTypes.PROFILE_SET_EDITED_REVEAL:
-            if (action.revealNumber < 0) {
-                return {
-                    ...state,
-                    editedReveal: undefined
-                }
-            }
+        case actionTypes.PROFILE_UPDATE_REVEAL:
             return {
                 ...state,
-                editedReveal: action.revealNumber
+                reveals: state.reveals.map((reveal) => {
+                    if (reveal.number === action.revealNumber) {
+                        return {
+                            ...reveal,
+                            prompt: action.prompt,
+                            answer: action.answer
+                        }
+                    }
+                    return reveal;
+                })
             }
         default:
             return state;
