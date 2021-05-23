@@ -47,7 +47,7 @@ class ProfilePage extends Component {
                     color='primary'
                     anchorOrigin={{
                         vertical: 'top',
-                        horizontal: 'right',
+                        horizontal: 'left',
                     }}
                 >
                   <IconButton className='edit-avatar'>

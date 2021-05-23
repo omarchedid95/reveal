@@ -1,5 +1,4 @@
 .nav-wrapper {
-    background-color: white;
     height: 120px;
     position: sticky;
     z-index: 99;
@@ -7,6 +6,24 @@
     display: flex;
     align-items: center;
 }
+.nav-wrapper .link {
+    color: inherit;
+    text-decoration: none;
+}
 .nav-wrapper .title-section {
     width: 300px;
+}
+.nav-wrapper .links-section {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+.nav-wrapper .links-section .chat-button {
+    width: 100px;
+    height: 100px;
+}
+.nav-wrapper .links-section .profile-button {
+    width: 100px;
+    height: 100px;
+
 }
