@@ -26,6 +26,7 @@
 .profile-page-component-wrapper .matches-section {
     margin-top: 32px;
     padding: 0px 0px 56px 0px;
+    margin-bottom: 24px;
 }
 .profile-page-component-wrapper .matches-section .reveal-time{
     display: flex;
