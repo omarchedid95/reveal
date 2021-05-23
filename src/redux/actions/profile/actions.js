@@ -8,3 +8,11 @@ export const updateReveal = (revealNumber, prompt, answer) => {
         answer: answer
     }
 }
+
+export const updatePreferences = (sexPreference, agePreference) => {
+    return {
+        type: actionTypes.PROFILE_UPDATE_PREFERENCES,
+        sexPreference: sexPreference,
+        agePreference: agePreference
+    }
+}

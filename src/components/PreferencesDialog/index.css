@@ -1,0 +1,29 @@
+.preferences-dialog-component-wrapper .content .sex-selection {
+    height: 100px;
+}
+.preferences-dialog-component-wrapper .content .sex-selection h6{
+    margin-bottom: 16px;
+}
+.preferences-dialog-component-wrapper .content .age-selection {
+    height: 100px;
+}
+.preferences-dialog-component-wrapper .content .age-selection h6{
+    margin-bottom: 16px;
+}
+/* Mobile */
+.preferences-dialog-component-wrapper .actions-wrapper-mobile {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 24px 0px 24px 0px;
+    position: relative;
+}
+.preferences-dialog-component-wrapper .actions-wrapper-mobile .cancel-button {
+    position: absolute;
+    left: 0;
+}
+.preferences-dialog-component-wrapper .actions-wrapper-mobile .save-button {
+    position: absolute;
+    right: 0;
+}

@@ -105,7 +105,7 @@ class RevealDialog extends Component {
             <Dialog
                 open={this.props.open}
                 TransitionComponent={Transition}
-                fullWidth
+                fullWidth={!isMobile}
                 fullScreen={isMobile}
                 className='reveal-dialog-component-wrapper'
                 onEnter={this.init}

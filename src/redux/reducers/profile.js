@@ -26,7 +26,11 @@ let initialState = {
             prompt: '',
             answer: ''
         }
-    ]
+    ],
+    preferences: {
+        sexPreference: 'anyone',
+        agePreference: [18, 30]
+    }
 }
 const reducer = (state = initialState, action) => {
     switch(action.type) {
@@ -43,6 +47,14 @@ const reducer = (state = initialState, action) => {
                     }
                     return reveal;
                 })
+            }
+        case actionTypes.PROFILE_UPDATE_PREFERENCES:
+            return {
+                ...state,
+                preferences: {
+                    sexPreference: action.sexPreference,
+                    agePreference: action.agePreference
+                }
             }
         default:
             return state;

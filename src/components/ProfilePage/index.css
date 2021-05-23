@@ -1,8 +1,13 @@
-.profile-page-component-wrapper .page-title {
-    padding: 0px 0px 0px 16px;
+.profile-page-component-wrapper .header {
     height: 60px;
+    position: relative;
     display: flex;
     align-items: center;
+}
+.profile-page-component-wrapper header .preferences-button {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 .profile-page-component-wrapper .profile-section {
     padding: 56px 0px 32px 0px;
