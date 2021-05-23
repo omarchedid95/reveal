@@ -4,6 +4,7 @@ import TuneIcon from '@material-ui/icons/Tune';
 import Reveal from '../Reveal';
 import { connect } from 'react-redux';
 import {Prompts} from '../../prompts';
+import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
 import './index.css';
 import PreferencesDialog from '../PreferencesDialog';
@@ -49,6 +50,9 @@ class ProfilePage extends Component {
                         horizontal: 'right',
                     }}
                 >
+                  <IconButton className='edit-avatar'>
+                    <EditIcon />
+                  </IconButton>
                     <Avatar alt='profile-picture' src='https://picsum.photos/200' className='avatar'/>
                 </Badge>
                 <Typography variant='h5'>Omar, 25</Typography>

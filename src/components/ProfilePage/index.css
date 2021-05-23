@@ -10,11 +10,20 @@
     top: 0;
 }
 .profile-page-component-wrapper .profile-section {
+    position: relative;
     padding: 56px 0px 32px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.profile-page-component-wrapper .profile-section .edit-avatar{
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    opacity: 0.9;
+    top: 16px;
+    right: 8px;
 }
 .profile-page-component-wrapper .profile-section .avatar {
     height: 200px;
