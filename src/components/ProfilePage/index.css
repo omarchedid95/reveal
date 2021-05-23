@@ -21,5 +21,15 @@
     width: 200px;
 }
 .profile-page-component-wrapper .reveal-section {
+    margin-bottom: 32px;
+}
+.profile-page-component-wrapper .matches-section {
+    margin-top: 32px;
     padding: 0px 0px 56px 0px;
+}
+.profile-page-component-wrapper .matches-section .reveal-time{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
 }

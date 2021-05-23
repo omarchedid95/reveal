@@ -1,0 +1,22 @@
+.profile-picture-component-wrapper {
+    /* margin: 24px; */
+    padding: 16px;
+}
+.profile-picture-component-wrapper div {
+    position: relative;
+    margin: auto;
+    /* Decide on image dimensions here */
+    max-width: 300px;
+    max-height: 300px;
+}
+.profile-picture-component-wrapper div .edit-button{
+    background-color: white;
+    opacity: 0.8;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+.profile-picture-component-wrapper div img {
+    max-width: 100%;
+    max-height: 100%;
+}

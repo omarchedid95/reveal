@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Avatar, Badge, Divider, Typography, Grid, IconButton } from '@material-ui/core';
+import { Avatar, Badge, Divider, Typography, Grid, IconButton, Chip } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
 import Reveal from '../Reveal';
 import { connect } from 'react-redux';
@@ -7,10 +7,18 @@ import {Prompts} from '../../prompts';
 import PropTypes from 'prop-types';
 import './index.css';
 import PreferencesDialog from '../PreferencesDialog';
+import ProfilePicture from '../ProfilePicture';
 
 class ProfilePage extends Component {
   state = {
     openPreferences: false
+  }
+  componentDidMount = () => {
+    // TODO: load profile data here
+    // let profile = {
+    //   reveals: [{}, {}, {}, {}],
+    //   preferences: {}
+    // }
   }
   togglePreferencesDialog = () => {
     this.setState((state) => ({
@@ -46,7 +54,7 @@ class ProfilePage extends Component {
                 <Typography variant='h5'>Omar, 25</Typography>
             </section>
             <section className='reveal-section'>
-                <Grid container spacing={3}>
+                <Grid container spacing={8}>
                   <Grid item xs={12} md={6}>
                     <Reveal reveal={reveals[0]} prompts={Prompts[0]}/>
                   </Grid>
@@ -60,6 +68,30 @@ class ProfilePage extends Component {
                     <Reveal reveal={reveals[3]} prompts={Prompts[3]}/>
                   </Grid>
                 </Grid>
+            </section>
+            <Divider />
+            <section className='matches-section'>
+              <div className='reveal-time'>
+                  <Chip
+                    size='small'
+                    label='revealed on match'
+                    color='primary'
+                  />
+              </div>
+              <Grid container spacing={8}>
+                <Grid item xs={12} md={6}>
+                  <ProfilePicture />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <ProfilePicture />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <ProfilePicture />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <ProfilePicture />
+                </Grid>
+              </Grid>
             </section>
           </div>
       )
