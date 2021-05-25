@@ -1,4 +1,4 @@
-import { Typography, Paper, Divider, TextField, IconButton } from '@material-ui/core';
+import { Paper, Divider, TextField, IconButton } from '@material-ui/core';
 import React, { Component } from 'react'
 import Message from '../Message';
 import SendIcon from '@material-ui/icons/Send';
@@ -53,9 +53,11 @@ export default class Chat extends Component {
                 {
                     this.state.messages.map((message, index) => {
                         if (message.sender.uuid === match.uuid) {
-                            return <Message key={index} message={message} state='received'/>
+                            return <Message key={index} message={message} state='received'/>;
                         } else if (message.sender.uuid === user.uuid) {
-                            return <Message key={index} message={message} state='sent'/>
+                            return <Message key={index} message={message} state='sent'/>;
+                        } else {
+                            return null;
                         }
                     })
                 }
