@@ -1,0 +1,20 @@
+.chat-page-component-wrapper header {
+    height: 60px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.chat-page-component-wrapper main {
+    padding-top: 16px;
+    display: flex;
+    height: 800px;
+}
+.chat-page-component-wrapper main .matches-list-section{
+    padding: 8px;
+    width: 300px;
+    margin-right: 16px;
+}
+.chat-page-component-wrapper main .match-section {
+    padding: 8px;
+    flex-grow: 1;
+}

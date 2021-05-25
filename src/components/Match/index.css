@@ -1,0 +1,18 @@
+.match-component-wrapper {
+    height: 100%;
+    position: relative;
+    padding-top: 50px;
+}
+.match-component-wrapper .tabs {
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+.match-component-wrapper .chat-wrapper {
+    padding-top: 8px;
+    height: 100%;
+}
+.match-component-wrapper .profile-wrapper {
+    height: 100%;
+}
