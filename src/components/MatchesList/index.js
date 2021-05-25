@@ -47,7 +47,7 @@ export default class MatchesList extends Component {
                     {
                         matches.map((match, index) => {
                             return (
-                                <div >
+                                <div key={index}>
                                     <ListItem button className='match-wrapper'>
                                         <ListItemAvatar className='avatar-wrapper'>
                                             <Avatar className='avatar' alt='profile-picture' src='https://picsum.photos/50' />

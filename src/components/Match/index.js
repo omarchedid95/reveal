@@ -26,7 +26,6 @@ export default class Match extends Component {
         const match = {
             uuid: 1897234
         }
-        console.log(this.state.messages);
         return (
             <Paper className='match-component-wrapper'>
                 <Tabs
