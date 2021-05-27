@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { Avatar, Badge, Divider, Typography, Grid, IconButton, Chip } from '@material-ui/core';
+import { Avatar, Badge, Divider, Typography, Grid, IconButton, Chip, Hidden } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
 import Reveal from '../Reveal';
-import { connect } from 'react-redux';
-import {Prompts} from '../../prompts';
 import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
-import './index.css';
 import PreferencesDialog from '../PreferencesDialog';
 import ProfilePicture from '../ProfilePicture';
-
+import NavBar from '../NavBar';
+import BottomMenu from '../BottomMenu';
+import {Prompts} from '../../prompts';
+import { connect } from 'react-redux';
+import {withAuth} from '../HOC';
+import './index.css';
 class ProfilePage extends Component {
   state = {
     openPreferences: false
@@ -30,6 +32,9 @@ class ProfilePage extends Component {
       const reveals = this.props.reveals;
       return (
           <div className='profile-page-component-wrapper'>
+            <Hidden xsDown>
+              <NavBar />
+            </Hidden>
             <PreferencesDialog
               open={this.state.openPreferences}
               toggleDialog={this.togglePreferencesDialog}
@@ -97,6 +102,9 @@ class ProfilePage extends Component {
                 </Grid>
               </Grid>
             </section>
+            <Hidden smUp>
+              <BottomMenu />
+            </Hidden>
           </div>
       )
   }
@@ -143,4 +151,4 @@ const mapStateToProps = (state) => {
       reveals: state.profile.reveals
   }
 }
-export default connect(mapStateToProps, null)(ProfilePage);
+export default connect(mapStateToProps, null)(withAuth(ProfilePage));
