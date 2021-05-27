@@ -1,28 +1,31 @@
-import { Container, Hidden } from '@material-ui/core'
-import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Container } from '@material-ui/core';
+import React, { Component } from 'react';
+import { Switch } from 'react-router-dom';
+import LandingPage from './components/LandingPage';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 import HomePage from './components/HomePage';
-import ProfilePage from './components/ProfilePage';
 import ChatPage from './components/ChatPage';
-import NavBar from './components/NavBar';
+import ProfilePage from './components/ProfilePage';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
+import { AuthProvider } from './auth/AuthProvider';
 import './App.css';
-import BottomMenu from './components/BottomMenu';
 
 export default class App extends Component {
   render() {
     return (
       <Container disableGutters maxWidth='md' className='app-component-wrapper'>
-        <Hidden xsDown>
-          <NavBar />
-        </Hidden>
+        <AuthProvider>
         <Switch>
-          <Route exact path='/' component={() => <HomePage />} />
-          <Route exact path='/chat' component={() => <ChatPage />} />
-          <Route exact path='/profile' component={() => <ProfilePage />} />
+          <PublicRoute exact path='/' component={() => <LandingPage />} />
+          <PublicRoute exact path='/login' component={() => <LoginPage />} />
+          <PublicRoute exact path='/signup' component={() => <SignupPage />} />
+          <PrivateRoute exact path='/home' component={() => <HomePage />} />
+          <PrivateRoute exact path='/chat' component={() => <ChatPage />} />
+          <PrivateRoute exact path='/profile' component={() => <ProfilePage />} />
         </Switch>
-        <Hidden smUp>
-          <BottomMenu />
-        </Hidden>
+        </AuthProvider>
       </Container>
     )
   }
