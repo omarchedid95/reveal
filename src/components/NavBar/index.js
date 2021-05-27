@@ -10,7 +10,7 @@ class NavBar extends Component {
         return (
             <nav className='nav-wrapper'>
                 <section className='title-section'>
-                    <Link to='/' className='link'>
+                    <Link to='/home' className='link'>
                         <Typography 
                             variant='h2'
                         >
