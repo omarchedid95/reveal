@@ -1,0 +1,19 @@
+.landing-page-component-wrapper .welcome-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.landing-page-component-wrapper .welcome-section h2 {
+    margin-bottom: 32px;
+}
+.landing-page-component-wrapper .welcome-section .next-button {
+    margin-top: 24px;
+    height: 100px;
+    width: 100px;
+}
+.landing-page-component-wrapper .welcome-section .next-button .icon {
+    height: 100px;
+    width: 100px;
+}
