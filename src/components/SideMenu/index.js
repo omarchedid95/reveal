@@ -1,6 +1,7 @@
-import { Avatar, Divider, MenuItem, Typography } from '@material-ui/core';
+import { Avatar, Divider, IconButton, MenuItem, Typography } from '@material-ui/core';
 import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ChatsList from '../ChatsList'
 import SettingsList from '../SettingsList';
 import './index.css';
@@ -15,10 +16,17 @@ class SideMenu extends Component {
         }
     }
     render() {
+        const pathName = this.props.location.pathname;
         return (
             <div className='side-menu-component-wrapper'>
                 <header>
                     <MenuItem onClick={this.changeMenuView} className='header-content-wrapper'>
+                        {
+                            pathName !== '/app' &&
+                            <IconButton>
+                                <ArrowBackIcon />
+                            </IconButton>
+                        }
                         <Avatar alt='profile-picture' src='https://picsum.photos/50' className='avatar'/>
                         <Typography variant='h5'>Omar</Typography>
                     </MenuItem>
