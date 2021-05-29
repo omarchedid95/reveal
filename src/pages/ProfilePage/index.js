@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Avatar, Badge, Divider, Typography, Grid, IconButton, Chip, Hidden } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
-import Reveal from '../Reveal';
+import Reveal from '../../components/Reveal';
 import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
-import PreferencesDialog from '../PreferencesDialog';
-import ProfilePicture from '../ProfilePicture';
-import NavBar from '../NavBar';
-import BottomMenu from '../BottomMenu';
+import PreferencesDialog from '../../components/PreferencesDialog';
+import ProfilePicture from '../../components/ProfilePicture';
+import NavBar from '../../components/NavBar';
+import BottomMenu from '../../components/BottomMenu';
 import {Prompts} from '../../prompts';
 import { connect } from 'react-redux';
-import {withAuth} from '../HOC';
+import {withAuth} from '../../components/HOC';
 import './index.css';
 class ProfilePage extends Component {
   state = {
@@ -32,9 +32,6 @@ class ProfilePage extends Component {
       const reveals = this.props.reveals;
       return (
           <div className='profile-page-component-wrapper'>
-            <Hidden xsDown>
-              <NavBar />
-            </Hidden>
             <PreferencesDialog
               open={this.state.openPreferences}
               toggleDialog={this.togglePreferencesDialog}
@@ -46,6 +43,7 @@ class ProfilePage extends Component {
               </IconButton>
             </header>
             <Divider />
+            <main>
             <section className='profile-section'>
                 <Badge
                     badgeContent='5 minute reveal'
@@ -102,9 +100,7 @@ class ProfilePage extends Component {
                 </Grid>
               </Grid>
             </section>
-            <Hidden smUp>
-              <BottomMenu />
-            </Hidden>
+            </main>
           </div>
       )
   }

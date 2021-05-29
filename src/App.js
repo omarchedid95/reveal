@@ -15,15 +15,15 @@ import './App.css';
 export default class App extends Component {
   render() {
     return (
-      <Container disableGutters maxWidth='md' className='app-component-wrapper'>
+      <Container disableGutters maxWidth='lg' className='app-component-wrapper'>
         <AuthProvider>
         <Switch>
           <PublicRoute exact path='/' component={() => <LandingPage />} />
           <PublicRoute exact path='/login' component={() => <LoginPage />} />
           <PublicRoute exact path='/signup' component={() => <SignupPage />} />
-          <PrivateRoute exact path='/home' component={() => <HomePage />} />
-          <PrivateRoute exact path='/chat' component={() => <ChatPage />} />
-          <PrivateRoute exact path='/profile' component={() => <ProfilePage />} />
+          <PrivateRoute path='/app' component={() => <HomePage />} />
+          {/* <PrivateRoute exact path='/chat' component={() => <ChatPage />} />
+          <PrivateRoute exact path='/profile' component={() => <ProfilePage />} /> */}
         </Switch>
         </AuthProvider>
       </Container>

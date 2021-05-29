@@ -19,13 +19,13 @@ class LoginPage extends Component {
         this.signInWithGoogle().then((res) => {
             console.log(res)
         }).catch((err) => {
-            const errorCode = err.code;
-            const errorMessage = err.message;
+            // const errorCode = err.code;
+            // const errorMessage = err.message;
             // Account exists (this is for sign up)
-            if (errorCode === 'auth/account-exists-with-different-credential') {
+            // if (errorCode === 'auth/account-exists-with-different-credential') {
 
-            }
-            console.log(err)
+            // }
+            // console.log(err)
         });
     }
     render() {
