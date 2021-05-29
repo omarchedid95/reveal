@@ -1,102 +1,31 @@
 import { Avatar, Divider, List, ListItem, ListItemAvatar, Typography } from '@material-ui/core'
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {selectChat} from '../../redux/actions/chats/actions';
+import { connect } from 'react-redux';
 import './index.css';
 
-export default class ChatsList extends Component {
+class ChatsList extends Component {
+    state = {
+        chats: []
+    }
+    componentDidMount = () => {
+        // Hook into firestore and keep getting a list of all the chats in real time
+    }
     render() {
-        // Get the matches from redux
-        // const matches = this.props.matches;
-        const chats = [
-            {
-                id: 'hlkjashdf9erjlkhasdf',
-                members: [
-                    {
-                        uid: 'alsdfjlaskdf',
-                        firstName: 'Sarah',
-                        avatarURL: 'https://picsum.photos/50'
-                    },
-                    {
-                        uid: 'kjasdhfklaysdif',
-                        firstName: 'Omar',
-                        avatarURL: 'https://picsum.photos/50'
-                    }
-                ],
-                lastMessage: 'This is the last message sent',
-                lastMessageDate: new Date()
-            }
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // {
-
-            // },
-            // ,
-            // {
-
-            // },
-            // ,
-            // {
-
-            // }
-        ]
         return (
             <div className='chats-list-component-wrapper'>
                 {
-                    chats.length > 0 &&
+                    this.state.chats.length > 0 &&
                     <List>
                         {
-                            chats.map((chat, index) => {
+                            this.state.chats.map((chat, index) => {
                                 return (
                                     <div key={index}>
-                                        <ListItem button className='chat-wrapper'>
+                                        <ListItem
+                                            selected={this.props.selectedChat.chatId === chat.chatId}
+                                            button
+                                            className='chat-wrapper'
+                                        >
                                             <ListItemAvatar className='avatar-wrapper'>
                                                 <Avatar className='avatar' alt='profile-picture' src='https://picsum.photos/50' />
                                             </ListItemAvatar>
@@ -113,7 +42,7 @@ export default class ChatsList extends Component {
                     </List>
                 }
                 {
-                    chats.length === 0 &&
+                    this.state.chats.length === 0 &&
                     <section className='empty-chats-section'>
                         <Typography variant='h5' align='center'>Your chats will appear here</Typography>
                     </section>
@@ -122,3 +51,14 @@ export default class ChatsList extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        selectedChat: state.chats.selectedChat
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        selectChat: (chat) => dispatch(selectChat(chat))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ChatsList);

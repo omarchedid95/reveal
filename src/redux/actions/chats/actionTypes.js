@@ -1,0 +1,1 @@
+export const CHATS_SELECT_CHAT = 'CHATS_SELECT_CHAT'
