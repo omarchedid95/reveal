@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import SideMenu from '../../components/SideMenu';
 import { withAuth } from '../../components/HOC'
 import Chat from '../../components/Chat';
-import ProfilePage from '../ProfilePage';
+import UserProfile from '../../components/UserProfile';
 import { Paper } from '@material-ui/core';
 import { Route, Switch } from 'react-router';
 import './index.css';
@@ -17,7 +17,7 @@ class MainPage extends Component {
                 <main>
                     <Switch>
                         <Route exact path='/app' component={() => <Chat />} />
-                        <Route exact path='/app/profile' component={() => <ProfilePage />} />
+                        <Route exact path='/app/profile' component={() => <UserProfile />} />
                     </Switch>
                 </main>
             </Paper>
