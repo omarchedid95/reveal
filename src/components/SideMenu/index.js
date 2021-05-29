@@ -2,6 +2,7 @@ import { Avatar, Divider, MenuItem, Typography } from '@material-ui/core';
 import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router';
 import ChatsList from '../ChatsList'
+import SettingsList from '../SettingsList';
 import './index.css';
 
 class SideMenu extends Component {
@@ -26,7 +27,9 @@ class SideMenu extends Component {
                 <main>
                     <Switch>
                         <Route exact path='/app' component={() => <ChatsList />} />
-                        <Route exact path='/profile' component={() => <p>Settigns</p>} />
+                        <Route exact path='/app/profile' component={() => <SettingsList />} />
+                        <Route exact path='/app/account' component={() => <SettingsList />} />
+                        <Route exact path='/app/help' component={() => <SettingsList />} />
                     </Switch>
                 </main>
             </div>

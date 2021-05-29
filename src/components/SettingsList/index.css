@@ -1,0 +1,15 @@
+.settings-list-component-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.settings-list-component-wrapper > section {
+    flex-grow: 1;
+}
+.settings-list-component-wrapper > section .setting-wrapper {
+    height: 90px;
+}
+.settings-list-component-wrapper > section .setting-wrapper > h5{ 
+    width: 100%;
+}

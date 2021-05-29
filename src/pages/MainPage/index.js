@@ -18,6 +18,8 @@ class MainPage extends Component {
                     <Switch>
                         <Route exact path='/app' component={() => <Chat />} />
                         <Route exact path='/app/profile' component={() => <UserProfile />} />
+                        <Route exact path='/app/account' component={() => <p>account here</p>} />
+                        <Route exact path='/app/help' component={() => <p>help here</p>} />
                     </Switch>
                 </main>
             </Paper>
