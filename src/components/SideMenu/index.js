@@ -10,7 +10,7 @@ class SideMenu extends Component {
         const pathName = this.props.location.pathname;
         if (pathName === '/app') {
             this.props.history.push('/app/profile')
-        } else if (pathName === '/app/profile') {
+        } else {
             this.props.history.push('/app')
         }
     }
