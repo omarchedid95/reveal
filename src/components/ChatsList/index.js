@@ -1,12 +1,29 @@
-import { Avatar, Divider, List, ListItem, ListItemAvatar, Paper, Typography } from '@material-ui/core'
+import { Avatar, Divider, List, ListItem, ListItemAvatar, Typography } from '@material-ui/core'
 import React, { Component } from 'react'
 import './index.css';
 
-export default class MatchesList extends Component {
+export default class ChatsList extends Component {
     render() {
         // Get the matches from redux
         // const matches = this.props.matches;
-        const matches = [
+        const chats = [
+            {
+                id: 'hlkjashdf9erjlkhasdf',
+                members: [
+                    {
+                        uid: 'alsdfjlaskdf',
+                        firstName: 'Sarah',
+                        avatarURL: 'https://picsum.photos/50'
+                    },
+                    {
+                        uid: 'kjasdhfklaysdif',
+                        firstName: 'Omar',
+                        avatarURL: 'https://picsum.photos/50'
+                    }
+                ],
+                lastMessage: 'This is the last message sent',
+                lastMessageDate: new Date()
+            }
             // {
 
             // },
@@ -46,26 +63,46 @@ export default class MatchesList extends Component {
             // {
 
             // },
+            // {
+
+            // },
+            // {
+
+            // },
+            // {
+
+            // },
+            // {
+
+            // },
+            // {
+
+            // },
+            // ,
+            // {
+
+            // },
+            // ,
             // {
 
             // }
         ]
         return (
-            <div className='matches-list-component-wrapper'>
+            <div className='chats-list-component-wrapper'>
                 {
-                    matches.length > 0 &&
+                    chats.length > 0 &&
                     <List>
                         {
-                            matches.map((match, index) => {
+                            chats.map((chat, index) => {
                                 return (
                                     <div key={index}>
-                                        <ListItem button className='match-wrapper'>
+                                        <ListItem button className='chat-wrapper'>
                                             <ListItemAvatar className='avatar-wrapper'>
                                                 <Avatar className='avatar' alt='profile-picture' src='https://picsum.photos/50' />
                                             </ListItemAvatar>
                                             <section>
                                                 <Typography variant='h6' noWrap>Omar</Typography>
-                                                <Typography noWrap>The last message sent was a long one</Typography>
+                                                <Typography noWrap>The last message sent was a long one that is very long</Typography>
                                             </section>
                                         </ListItem>
                                         <Divider />
@@ -76,9 +113,9 @@ export default class MatchesList extends Component {
                     </List>
                 }
                 {
-                    matches.length === 0 &&
-                    <section className='empty-matches-section'>
-                        <Typography variant='h5' align='center'>You matches will appear here</Typography>
+                    chats.length === 0 &&
+                    <section className='empty-chats-section'>
+                        <Typography variant='h5' align='center'>Your chats will appear here</Typography>
                     </section>
                 }
             </div>

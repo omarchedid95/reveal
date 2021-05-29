@@ -3,21 +3,23 @@
     border-width: 0px 1px 0px 0px;
     border-style: solid;
     border-color: rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
 }
-.side-menu-component-wrapper header {
-    height: 90px;
+.side-menu-component-wrapper > header {
     display: flex;
     align-items: center;
 }
-.side-menu-component-wrapper header .header-content-wrapper {
-    height: 100%;
+.side-menu-component-wrapper > header .header-content-wrapper {
+    height: 120px;
     width: 100%;
 }
-.side-menu-component-wrapper header .avatar {
+.side-menu-component-wrapper > header .avatar {
     height: 50px;
     width: 50px;
     margin: 0px 8px 0px 0px;
 }
 .side-menu-component-wrapper main {
-    height: 100%;
+    flex-grow: 1;
+    overflow-y: scroll;
 }

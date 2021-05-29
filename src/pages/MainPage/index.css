@@ -5,6 +5,7 @@
 }
 .main-page-component-wrapper > aside {
     min-width: 400px;
+    max-width: 400px;
 }
 .main-page-component-wrapper > main {
     flex-grow: 1;

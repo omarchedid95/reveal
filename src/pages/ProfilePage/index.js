@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { Avatar, Badge, Divider, Typography, Grid, IconButton, Chip, Hidden } from '@material-ui/core';
+import { Avatar, Badge, Divider, Typography, Grid, IconButton, Chip } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
 import Reveal from '../../components/Reveal';
 import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
 import PreferencesDialog from '../../components/PreferencesDialog';
 import ProfilePicture from '../../components/ProfilePicture';
-import NavBar from '../../components/NavBar';
-import BottomMenu from '../../components/BottomMenu';
 import {Prompts} from '../../prompts';
 import { connect } from 'react-redux';
 import {withAuth} from '../../components/HOC';

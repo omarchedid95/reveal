@@ -1,23 +1,17 @@
-import { Avatar, Divider, ListItem, ListItemAvatar, MenuItem, Tab, Tabs, Typography } from '@material-ui/core';
+import { Avatar, Divider, MenuItem, Typography } from '@material-ui/core';
 import React, { Component } from 'react'
-import { withRouter } from 'react-router';
-import MatchesList from '../MatchesList'
+import { Route, Switch, withRouter } from 'react-router';
+import ChatsList from '../ChatsList'
 import './index.css';
 
 class SideMenu extends Component {
-    state = {
-        chatMenuView: true
-    }
     changeMenuView = () => {
-        this.setState((state) => ({
-            chatMenuView: !state.chatMenuView
-        }), () => {
-            if (this.state.chatMenuView) {
-                this.props.history.push('/app');
-            } else {
-                this.props.history.push('/app/profile')
-            }
-        });
+        const pathName = this.props.location.pathname;
+        if (pathName === '/app') {
+            this.props.history.push('/app/profile')
+        } else if (pathName === '/app/profile') {
+            this.props.history.push('/app')
+        }
     }
     render() {
         return (
@@ -30,14 +24,10 @@ class SideMenu extends Component {
                 </header>
                 <Divider />
                 <main>
-                    {
-                        this.state.chatMenuView  &&
-                        <MatchesList />
-                    }
-                    {
-                        !this.state.chatMenuView &&
-                        <p>Settings</p>
-                    }
+                    <Switch>
+                        <Route exact path='/app' component={() => <ChatsList />} />
+                        <Route exact path='/profile' component={() => <p>Settigns</p>} />
+                    </Switch>
                 </main>
             </div>
         )
