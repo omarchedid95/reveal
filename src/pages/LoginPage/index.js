@@ -1,7 +1,7 @@
 import { Button, Divider, Link, TextField, Typography } from '@material-ui/core'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router';
-import { withAuth } from '../HOC';
+import { withAuth } from '../../components/HOC';
 import './index.css';
 
 class LoginPage extends Component {

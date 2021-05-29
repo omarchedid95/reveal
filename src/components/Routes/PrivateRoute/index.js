@@ -1,6 +1,6 @@
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
-import {withAuth} from "../HOC";
+import {withAuth} from "../../HOC";
 
 // Redirect all un-authorized requests back to the landing page
 function PrivateRoute({ component: Component, ...rest }) {

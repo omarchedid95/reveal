@@ -1,14 +1,12 @@
 import { Container } from '@material-ui/core';
 import React, { Component } from 'react';
 import { Switch } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import LoginPage from './components/LoginPage';
-import SignupPage from './components/SignupPage';
-import HomePage from './components/HomePage';
-import ChatPage from './components/ChatPage';
-import ProfilePage from './components/ProfilePage';
-import PrivateRoute from './components/PrivateRoute';
-import PublicRoute from './components/PublicRoute';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import MainPage from './pages/MainPage';
+import PrivateRoute from './components/Routes/PrivateRoute';
+import PublicRoute from './components/Routes/PublicRoute';
 import { AuthProvider } from './auth/AuthProvider';
 import './App.css';
 
@@ -21,9 +19,7 @@ export default class App extends Component {
           <PublicRoute exact path='/' component={() => <LandingPage />} />
           <PublicRoute exact path='/login' component={() => <LoginPage />} />
           <PublicRoute exact path='/signup' component={() => <SignupPage />} />
-          <PrivateRoute path='/app' component={() => <HomePage />} />
-          {/* <PrivateRoute exact path='/chat' component={() => <ChatPage />} />
-          <PrivateRoute exact path='/profile' component={() => <ProfilePage />} /> */}
+          <PrivateRoute path='/app' component={() => <MainPage />} />
         </Switch>
         </AuthProvider>
       </Container>

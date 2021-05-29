@@ -1,6 +1,6 @@
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
-import {withAuth} from "../HOC";
+import {withAuth} from "../../HOC";
 
 // Always redirect the user to the home page if he is logged in
 function PublicRoute({ component: Component, ...rest }) {
@@ -10,7 +10,7 @@ function PublicRoute({ component: Component, ...rest }) {
     <Route
       {...others}
       render={props => {
-        return currentUser ? <Redirect to="/home" /> : <Component {...props} />
+        return currentUser ? <Redirect to="/app" /> : <Component {...props} />
       }}
     ></Route>
   )
