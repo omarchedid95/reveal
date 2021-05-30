@@ -1,6 +1,9 @@
 import * as actionTypes from '../actions/profile/actionTypes';
 
 let initialState = {
+    firstName: '',
+    lastName: '',
+    dob: new Date(),
     reveals: [
         {
             number: 0,
@@ -34,6 +37,15 @@ let initialState = {
 }
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case actionTypes.PROFILE_INIT:
+            return {
+                ...state,
+                firstName: action.profile.firstName,
+                lastName: action.profile.lastName,
+                dob: action.profile.dob,
+                reveals: action.profile.reveals,
+                preferences: action.profile.preferences
+            }
         case actionTypes.PROFILE_UPDATE_REVEAL:
             return {
                 ...state,
