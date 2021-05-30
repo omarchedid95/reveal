@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, Divider, Slide, Paper, TextField, Hidden } from '@material-ui/core';
+import Loading from '../Loading';
 import Carousel from 'react-material-ui-carousel';
 import { connect } from 'react-redux';
 import { updateReveal } from '../../redux/actions/profile/actions';
 import PropTypes from 'prop-types';
+import {firestore} from '../../firebase';
 import { withMediaQuery } from '../HOC';
 import './index.css';
 
@@ -13,6 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 class RevealDialog extends Component {
     state = {
+        loading: false,
         prompt: '',
         answer: '',
         error: undefined
@@ -21,12 +24,14 @@ class RevealDialog extends Component {
         const filteredPrompts = this.filterPrompts(this.props.prompts);
         if (this.props.reveal.prompt.length > 0) {
             this.setState({
+                loading: false,
                 prompt: this.props.reveal.prompt,
                 answer: this.props.reveal.answer,
                 error: undefined
             });
         } else {
             this.setState({
+                loading: false,
                 prompt: filteredPrompts[0],
                 answer: '',
                 error: undefined
@@ -35,6 +40,7 @@ class RevealDialog extends Component {
     }
     reset = () => {
         this.setState({
+            loading: false,
             prompt: '',
             answer: '',
             error: undefined
@@ -68,9 +74,27 @@ class RevealDialog extends Component {
     }
     saveChanges = () => {
         if (this.validateAnswer()) {
-            this.props.updateReveal(this.props.reveal.number, this.state.prompt, this.state.answer);
-            this.reset();
-            this.props.toggleDialog();
+            this.setState({
+                loading: true
+            });
+            const revealKey = `reveal${this.props.reveal.number}`;
+            let updated = {}
+            updated[revealKey] = {
+                number: this.props.reveal.number,
+                time: this.props.reveal.time,
+                prompt: this.state.prompt,
+                answer: this.state.answer
+            }
+            firestore.collection('user').doc('1')
+            .update(updated).then(() => {
+                setTimeout(() => {
+                    this.props.updateReveal(this.props.reveal.number, this.state.prompt, this.state.answer);
+                    this.reset();
+                    this.props.toggleDialog();
+                }, 500);
+            }).catch((error) => {
+                console.log(error)
+            })
         }
     }
     discardChanges = () => {
@@ -193,6 +217,12 @@ class RevealDialog extends Component {
                     />
                 </DialogContent>
                 <Hidden xsDown>
+                    {
+                        this.state.loading &&
+                        <div className='loading-wrapper'>
+                            <Loading />
+                        </div>
+                    }
                     <DialogActions>
                         <Button
                             onClick={this.discardChanges}
@@ -200,7 +230,7 @@ class RevealDialog extends Component {
                             Cancel
                         </Button>
                         <Button
-                            disabled={this.state.error !== undefined}
+                            disabled={this.state.loading || this.state.error !== undefined}
                             onClick={this.saveChanges}
                         >
                             Save

@@ -1,9 +1,11 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, Hidden, Button, Typography, ButtonGroup, Slide, Divider, Slider } from '@material-ui/core';
 import React, { Component } from 'react';
+import {firestore} from '../../firebase';
 import { connect } from 'react-redux';
 import { updatePreferences } from '../../redux/actions/profile/actions';
 import {withMediaQuery} from '../HOC';
 import './index.css';
+import Loading from '../Loading';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -11,6 +13,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 class PreferencesDialog extends Component {
     state = {
+        loading: false,
         sexPreference: '',
         agePreference: []
     }
@@ -18,8 +21,26 @@ class PreferencesDialog extends Component {
         this.props.toggleDialog();
     }
     saveChanges = () => {
-        this.props.updatePreferences(this.state.sexPreference, this.state.agePreference)
-        this.props.toggleDialog();
+        this.setState({
+            loading: true
+        });
+        firestore.collection('user').doc('1')
+        .update({
+            sexPreference: this.state.sexPreference,
+            agePreference: this.state.agePreference
+        }).then(() => {
+            setTimeout(() => {
+                this.props.updatePreferences(this.state.sexPreference, this.state.agePreference)
+                this.setState({
+                    loading: false
+                });
+                this.props.toggleDialog();
+            }, 500);
+        }).catch((error) => {
+            console.log(error);
+        }).finally(() => {
+            
+        })
     }
     updateSexPreference = (sex) => {
         this.setState({
@@ -42,6 +63,7 @@ class PreferencesDialog extends Component {
     }
     init = () => {
         this.setState({
+            loading: false,
             sexPreference: this.props.preferences.sexPreference,
             agePreference: this.props.preferences.agePreference
         })
@@ -119,6 +141,12 @@ class PreferencesDialog extends Component {
                     </section>
                 </DialogContent>
                 <Hidden xsDown>
+                    {
+                        this.state.loading &&
+                        <div className='loading-wrapper'>
+                            <Loading />
+                        </div>
+                    }
                     <DialogActions>
                         <Button
                             onClick={this.discardChanges}
@@ -127,6 +155,7 @@ class PreferencesDialog extends Component {
                         </Button>
                         <Button
                             onClick={this.saveChanges}
+                            disabled={this.state.loading}
                         >
                             Save
                         </Button>

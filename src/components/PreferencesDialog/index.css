@@ -10,6 +10,10 @@
 .preferences-dialog-component-wrapper .content .age-selection h6{
     margin-bottom: 16px;
 }
+.preferences-dialog-component-wrapper .loading-wrapper {
+    height: 50px;
+    width: 100%;
+}
 /* Mobile */
 .preferences-dialog-component-wrapper .actions-wrapper-mobile {
     width: 100%;
