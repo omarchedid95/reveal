@@ -1,0 +1,31 @@
+.image-uploader-component-wrapper .content .preview-wrapper {
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.image-uploader-component-wrapper .content .preview-wrapper > div {
+    position: relative;
+    margin: auto;
+    height: 300px;
+    width: 300px;
+}
+.image-uploader-component-wrapper .content .preview-wrapper > div > img {
+    height: 100%;
+    width: 100%;
+}
+.image-uploader-component-wrapper .content .preview-wrapper > div .delete-button{
+    position: absolute;
+    top: -35px;
+    right: -35px;
+}
+.image-uploader-component-wrapper .content .default-image {
+    height: 150px;
+    width: 150px;
+    color: black
+}
+.image-uploader-component-wrapper .content div:nth-of-type(2) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

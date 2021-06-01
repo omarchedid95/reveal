@@ -107,7 +107,7 @@ class PreferencesDialog extends Component {
                 </DialogTitle>
                 <DialogContent className='content'>
                     <section className='sex-selection'>
-                        <Typography variant='h6'>connect with {this.state.sexPreference}</Typography>
+                        <Typography variant='h6'>connect with <span style={{fontWeight: 'bold'}}>{this.state.sexPreference}</span></Typography>
                         <ButtonGroup fullWidth>
                             <Button
                                 onClick={() => this.updateSexPreference('men')}
@@ -130,7 +130,7 @@ class PreferencesDialog extends Component {
                         </ButtonGroup>
                     </section>
                     <section className='age-selection'>
-                        <Typography variant='h6'>between the ages of {this.state.agePreference[0]} and {this.state.agePreference[1]}</Typography>
+                        <Typography variant='h6'>between the ages of <span style={{fontWeight: 'bold'}}>{this.state.agePreference[0]}</span> and <span style={{fontWeight: 'bold'}}>{this.state.agePreference[1]}</span></Typography>
                         <Slider
                             min={18}
                             max={100}
