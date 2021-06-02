@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Avatar, Badge, Divider, Typography, Grid, IconButton, Chip } from '@material-ui/core';
+import { Badge, Divider, Typography, Grid, IconButton, Chip } from '@material-ui/core';
 import TuneIcon from '@material-ui/icons/Tune';
 import Reveal from '../Reveal';
-import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
 import PreferencesDialog from '../PreferencesDialog';
 import ProfilePicture from '../ProfilePicture';

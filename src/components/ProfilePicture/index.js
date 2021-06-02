@@ -1,4 +1,4 @@
-import { Avatar, Card, IconButton } from '@material-ui/core'
+import { Card, IconButton } from '@material-ui/core'
 import React, { Component } from 'react'
 import EditIcon from '@material-ui/icons/Edit';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
