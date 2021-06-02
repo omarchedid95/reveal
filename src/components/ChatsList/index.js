@@ -44,7 +44,7 @@ class ChatsList extends Component {
                 {
                     this.state.chats.length === 0 &&
                     <section className='empty-chats-section'>
-                        <Typography variant='h5' align='center'>Your chats will appear here</Typography>
+                        <Typography variant='h5' align='center'>Your matches will appear here</Typography>
                     </section>
                 }
             </div>
