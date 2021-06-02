@@ -1,39 +1,10 @@
 import { Avatar, Button, Divider, List, ListItem, ListItemAvatar, Typography } from '@material-ui/core'
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadMatches, selectMatch } from '../../redux/actions/matches/actions';
+import { selectMatch } from '../../redux/actions/matches/actions';
 import './index.css';
 
 class MatchesList extends Component {
-    componentDidMount = () => {
-        // Hook into firestore and keep getting a list of all the current matches in real time
-        this.props.loadMatches([
-            {
-                matchId: 1,
-                partner: {
-                    name: 'Omar',
-                    avatarURL: 'https://picsum.photos/50'
-                },
-                lastMessage: 'test'
-            },
-            {
-                matchId: 2,
-                partner: {
-                    name: 'Sarah',
-                    avatarURL: 'https://picsum.photos/50'
-                },
-                lastMessage: 'testing a longer message that takes space'
-            },
-            {
-                matchId: 3,
-                partner: {
-                    name: 'Alex',
-                    avatarURL: 'https://picsum.photos/50'
-                },
-                lastMessage: 'test'
-            }
-        ])
-    }
     render() {
         const matches = this.props.matches;
         const selectedMatch = this.props.selectedMatch;
@@ -53,7 +24,7 @@ class MatchesList extends Component {
                                 return (
                                     <div key={index}>
                                         <ListItem
-                                            selected={selectedMatch ? selectedMatch.matchId === match.matchId : false}
+                                            selected={selectedMatch ? selectedMatch.chatId === match.chatId : false}
                                             button
                                             onClick={() => this.props.selectMatch(match)}
                                             className='match-wrapper'
@@ -91,7 +62,6 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadMatches: (matches) => dispatch(loadMatches(matches)),
         selectMatch: (match) => dispatch(selectMatch(match))
     }
 }
