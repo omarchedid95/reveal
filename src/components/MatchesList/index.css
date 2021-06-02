@@ -1,26 +1,26 @@
-.chats-list-component-wrapper {
+.matches-list-component-wrapper {
     height: 100%;
 }
-.chats-list-component-wrapper .chat-wrapper {
+.matches-list-component-wrapper .match-wrapper {
     height: 90px;
     width: 100%;
 }
-.chats-list-component-wrapper .chat-wrapper .avatar-wrapper{
+.matches-list-component-wrapper .match-wrapper .avatar-wrapper{
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.chats-list-component-wrapper .chat-wrapper .avatar-wrapper .avatar{
+.matches-list-component-wrapper .match-wrapper .avatar-wrapper .avatar{
     height: 50px;
     width: 50px;
 }
-.chats-list-component-wrapper .chat-wrapper > section {
+.matches-list-component-wrapper .match-wrapper > section {
     padding-left: 8px;
     white-space: nowrap;
     overflow: hidden;
 }
-.chats-list-component-wrapper .empty-chats-section {
+.matches-list-component-wrapper .empty-chats-section {
     height: 100%;
     display: flex;
     align-items: center;

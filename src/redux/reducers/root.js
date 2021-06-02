@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import profile from './profile';
-import chats from './chats';
+import matches from './matches';
 
 const appReducer = combineReducers({
     profile: profile,
-    chats: chats
+    matches: matches
 });
 
 const rootReducer = (state, action) => {   

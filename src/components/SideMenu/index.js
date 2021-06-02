@@ -2,7 +2,7 @@ import { Avatar, Divider, IconButton, MenuItem, Typography } from '@material-ui/
 import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ChatsList from '../ChatsList'
+import MatchesList from '../MatchesList'
 import SettingsList from '../SettingsList';
 import {storage} from '../../firebase';
 import './index.css';
@@ -53,7 +53,7 @@ class SideMenu extends Component {
                 <Divider />
                 <main>
                     <Switch>
-                        <Route exact path='/app' component={() => <ChatsList />} />
+                        <Route exact path='/app' component={() => <MatchesList />} />
                         <Route exact path='/app/profile' component={() => <SettingsList />} />
                         <Route exact path='/app/account' component={() => <SettingsList />} />
                         <Route exact path='/app/help' component={() => <SettingsList />} />
