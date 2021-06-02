@@ -5,64 +5,16 @@ import Reveal from '../Reveal';
 import PropTypes from 'prop-types';
 import PreferencesDialog from '../PreferencesDialog';
 import ProfilePicture from '../ProfilePicture';
-import Loading from '../Loading';
-import {firestore} from '../../firebase';
 import {Prompts} from '../../prompts';
 import { connect } from 'react-redux';
 import {withAuth} from '../HOC';
 import './index.css';
-import { initProfile } from '../../redux/actions/profile/actions';
 
 class UserProfile extends Component {
   state = {
-    loading: true,
     openPreferences: false
   }
-  componentDidMount = () => {
-    this.setState({
-      loading: true
-    });
-    firestore.collection('user').doc('1').get()
-    .then((doc) => {
-      if (!doc.exists) {
-        throw Error('User does not exist');
-      }
-      // Sanitize data first
-      const user = doc.data();
-      const firstName = user.firstName ? user.firstName : '';
-      const lastName = user.lastName ? user.lastName : '';
-      const dob = user.dob ? user.dob : new Date();
-      const reveal0 = user.reveal0 ? user.reveal0 : {number: 0, time: 1, prompt: '', answer: ''}
-      const reveal1 = user.reveal1 ? user.reveal1 : {number: 1, time: 3, prompt: '', answer: ''}
-      const reveal2 = user.reveal2 ? user.reveal2 : {number: 2, time: 7, prompt: '', answer: ''}
-      const reveal3 = user.reveal3 ? user.reveal3 : {number: 3, time: 10, prompt: '', answer: ''}
-      const preferences = {
-        sexPreference: user.sexPreference ? user.sexPreference : 'anyone',
-        agePreference: user.agePreference ? user.agePreference : [18, 30]
-      }
-      const profile = {
-        firstName: firstName,
-        lastName: lastName,
-        dob: dob,
-        reveals: [
-          reveal0,
-          reveal1,
-          reveal2,
-          reveal3,
-        ],
-        preferences: preferences
-      }
-      this.props.initProfile(profile);
-    }).catch((error) => {
-      console.log(error)
-    }).finally(() => {
-      setTimeout(() => {
-        this.setState({
-          loading: false
-        })
-      }, 500);
-    })
-  }
+
   togglePreferencesDialog = () => {
     this.setState((state) => ({
       openPreferences: !state.openPreferences
@@ -77,13 +29,6 @@ class UserProfile extends Component {
   }
   render() {
       const reveals = this.props.reveals;
-      if (this.state.loading) {
-        return (
-          <div className='user-profile-component-wrapper'>
-            <Loading />
-          </div>
-        )
-      }
       return (
           <div className='user-profile-component-wrapper'>
             <PreferencesDialog
@@ -200,9 +145,4 @@ const mapStateToProps = (state) => {
       dob: state.profile.dob
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-      initProfile: (profile) => dispatch(initProfile(profile))
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(withAuth(UserProfile));
+export default connect(mapStateToProps, null)(withAuth(UserProfile));

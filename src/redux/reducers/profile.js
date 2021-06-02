@@ -37,7 +37,7 @@ let initialState = {
 }
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case actionTypes.PROFILE_INIT:
+        case actionTypes.PROFILE_SYNC:
             return {
                 ...state,
                 firstName: action.profile.firstName,

@@ -1,8 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const initProfile = (profile) => {
+export const syncProfile = (profile) => {
     return {
-        type: actionTypes.PROFILE_INIT,
+        type: actionTypes.PROFILE_SYNC,
         profile: profile
     }
 }

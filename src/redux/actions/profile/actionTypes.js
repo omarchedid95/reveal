@@ -1,1 +1,1 @@
-export const PROFILE_INIT = 'PROFILE_INIT';
+export const PROFILE_SYNC = 'PROFILE_SYNC';
