@@ -46,28 +46,6 @@ const reducer = (state = initialState, action) => {
                 reveals: action.profile.reveals,
                 preferences: action.profile.preferences
             }
-        case actionTypes.PROFILE_UPDATE_REVEAL:
-            return {
-                ...state,
-                reveals: state.reveals.map((reveal) => {
-                    if (reveal.number === action.revealNumber) {
-                        return {
-                            ...reveal,
-                            prompt: action.prompt,
-                            answer: action.answer
-                        }
-                    }
-                    return reveal;
-                })
-            }
-        case actionTypes.PROFILE_UPDATE_PREFERENCES:
-            return {
-                ...state,
-                preferences: {
-                    sexPreference: action.sexPreference,
-                    agePreference: action.agePreference
-                }
-            }
         default:
             return state;
     }

@@ -3,7 +3,6 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, 
 import Loading from '../Loading';
 import Carousel from 'react-material-ui-carousel';
 import { connect } from 'react-redux';
-import { updateReveal } from '../../redux/actions/profile/actions';
 import PropTypes from 'prop-types';
 import {firestore} from '../../firebase';
 import { withMediaQuery } from '../HOC';
@@ -88,7 +87,6 @@ class RevealDialog extends Component {
             firestore.collection('user').doc('1')
             .update(updated).then(() => {
                 setTimeout(() => {
-                    this.props.updateReveal(this.props.reveal.number, this.state.prompt, this.state.answer);
                     this.reset();
                     this.props.toggleDialog();
                 }, 500);
@@ -302,9 +300,4 @@ const mapStateToProps = (state) => {
         reveals: state.profile.reveals
     }
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        updateReveal: (revealNumber, prompt, answer) => dispatch(updateReveal(revealNumber, prompt, answer))
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(withMediaQuery(RevealDialog));
+export default connect(mapStateToProps, null)(withMediaQuery(RevealDialog));

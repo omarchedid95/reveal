@@ -2,7 +2,6 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, Hidden, Button, Typo
 import React, { Component } from 'react';
 import {firestore} from '../../firebase';
 import { connect } from 'react-redux';
-import { updatePreferences } from '../../redux/actions/profile/actions';
 import {withMediaQuery} from '../HOC';
 import './index.css';
 import Loading from '../Loading';
@@ -30,7 +29,6 @@ class PreferencesDialog extends Component {
             agePreference: this.state.agePreference
         }).then(() => {
             setTimeout(() => {
-                this.props.updatePreferences(this.state.sexPreference, this.state.agePreference)
                 this.setState({
                     loading: false
                 });
@@ -170,9 +168,4 @@ const mapStateToProps = (state) => {
         preferences: state.profile.preferences
     }
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        updatePreferences: (sexPreference, agePreference) => dispatch(updatePreferences(sexPreference, agePreference))
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(withMediaQuery(PreferencesDialog));
+export default connect(mapStateToProps, null)(withMediaQuery(PreferencesDialog));
