@@ -108,12 +108,9 @@ class UserProfile extends Component {
                           horizontal: 'left',
                       }}
                   >
-                    <IconButton className='edit-avatar'>
-                      <EditIcon />
-                    </IconButton>
-                    <Avatar alt='profile-picture' src='https://picsum.photos/200' className='avatar'/>
+                    <ProfilePicture pictureName='main'/>
                   </Badge>
-                  <Typography variant='h5'>{this.props.firstName}, {this.calculateAge(this.props.dob)}</Typography>
+                  <Typography variant='h5' className='name'>{this.props.firstName}, {this.calculateAge(this.props.dob)}</Typography>
               </section>
               <section className='reveal-section'>
                   <Grid container spacing={6}>
@@ -142,16 +139,16 @@ class UserProfile extends Component {
                 </div>
                 <Grid container spacing={6}>
                   <Grid item xs={12} md={6}>
-                    <ProfilePicture />
+                    <ProfilePicture pictureName='picture1'/>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <ProfilePicture />
+                    <ProfilePicture pictureName='picture2'/>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <ProfilePicture />
+                    <ProfilePicture pictureName='picture3'/>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <ProfilePicture />
+                    <ProfilePicture pictureName='picture4'/>
                   </Grid>
                 </Grid>
               </section>

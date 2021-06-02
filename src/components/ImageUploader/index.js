@@ -2,9 +2,9 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Typ
 import React, { Component } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import Loading from '../Loading';
 import {storage} from '../../firebase';
 import './index.css';
-import Loading from '../Loading';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -13,7 +13,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 class ImageUploader extends Component {
     state = {
         picture: undefined,
-        loading: false
+        loading: true,
+        oldPicture: undefined
+    }
+    init = () => {
+        this.setState({
+            picture: undefined,
+            loading: false,
+            oldPicture: this.props.pictureURL
+        })
     }
     handleImageDrop = (picture) => {
         const reader = new FileReader();
@@ -36,28 +44,58 @@ class ImageUploader extends Component {
             });
         }
     }
-    deleteImage = () => {
+    // Deletes the new image (local change only)
+    deleteNewImage = () => {
         this.setState({
             picture: undefined
         })
     }
+    // Deletes the old image from the server and from local state
+    deleteOldPicture = () => {
+        if (this.props.pictureName === 'main') {
+            this.setState({
+                oldPicture: undefined
+            });
+            return;
+        }
+        this.setState({
+            loading: true
+        });
+        storage.ref(`/pictures/1/${this.props.pictureName}`).delete().then(() => {
+            setTimeout(() => {
+                this.props.updateImageURL(undefined);
+                this.setState({
+                    oldPicture: undefined
+                });
+                this.setState({
+                    loading: false
+                });
+            }, 1000);
+        })
+    }
+    // Upload the new image
     uploadImage = () => {
         this.setState({
             loading: true
         });
-        setTimeout(() => {
-            storage.ref(`/pictures/1/picture1`).put(this.state.picture);
-            this.setState({
-                loading: false
-            });
-            this.props.toggleDialog();
-        }, 1000);
+        storage.ref(`/pictures/1/${this.props.pictureName}`).put(this.state.picture).then(() => {
+            storage.ref(`/pictures/1/${this.props.pictureName}`).getDownloadURL().then((url) => {
+                setTimeout(() => {
+                    this.props.updateImageURL(url);
+                    this.props.toggleDialog();
+                    this.setState({
+                        loading: false
+                    });
+                }, 1000);
+            })
+        });
     }
     render() {
         return (
             <Dialog
                 open={this.props.open}
                 fullWidth
+                onEnter={this.init}
                 TransitionComponent={Transition}
                 className='image-uploader-component-wrapper'
             >
@@ -71,24 +109,43 @@ class ImageUploader extends Component {
                     <div className='preview-wrapper'>
                         {
                             this.state.picture === undefined &&
+                            this.state.oldPicture === undefined &&
+                            !this.state.loading &&
+                            <div className='default-wrapper'>
                             <label htmlFor='image-uploader-input'>
                                 <IconButton component='span'>
                                     <AddIcon className='default-image'/>
                                 </IconButton>
-                            </label> 
+                            </label>
+                            {
+                                this.props.pictureName === 'main' &&
+                                <Typography align='center'>You must have a 5 minute reveal picture</Typography>
+                            }
+                            </div>
                         }
                         {
-                            this.state.picture !== undefined &&
+                            // Handle existing image
+                            this.state.oldPicture !== undefined &&
                             !this.state.loading &&
                             <div>
-                                <img src={URL.createObjectURL(this.state.picture)} alt='uploaded-file' className='uploaded-image'/>
-                                <IconButton className='delete-button' onClick={this.deleteImage}>
+                                <img src={this.state.oldPicture} alt='uploaded-file' className='uploaded-image'/>
+                                <IconButton className='delete-button' onClick={this.deleteOldPicture}>
                                     <HighlightOffIcon />
                                 </IconButton>
                             </div>
                         }
                         {
+                            // Handle new image
                             this.state.picture !== undefined &&
+                            !this.state.loading &&
+                            <div>
+                                <img src={URL.createObjectURL(this.state.picture)} alt='uploaded-file' className='uploaded-image'/>
+                                <IconButton className='delete-button' onClick={this.deleteNewImage}>
+                                    <HighlightOffIcon />
+                                </IconButton>
+                            </div>
+                        }
+                        {
                             this.state.loading &&
                             <div>
                                 <Loading />
@@ -107,7 +164,11 @@ class ImageUploader extends Component {
                 <DialogActions>
                     <Button onClick={this.props.toggleDialog}>Cancel</Button>
                     <Button
-                        disabled={this.state.picture === undefined || this.state.loading}
+                        disabled={
+                            this.state.picture === undefined ||
+                            this.state.oldPicture !== undefined ||
+                            this.state.loading
+                        }
                         onClick={this.uploadImage}>Upload</Button>
                 </DialogActions>
             </Dialog>

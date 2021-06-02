@@ -26,18 +26,9 @@
     align-items: center;
     justify-content: center;
 }
-.user-profile-component-wrapper > main .main-profile-section .edit-avatar{
-    position: absolute;
-    z-index: 1;
-    background-color: white;
-    opacity: 0.95;
-    top: 16px;
-    right: 8px;
-}
-.user-profile-component-wrapper > main .main-profile-section .avatar {
-    height: 200px;
-    width: 200px;
-    margin-bottom: 8px;
+.user-profile-component-wrapper > main .name {
+    padding: 16px;
+
 }
 .user-profile-component-wrapper > main .reveal-section {
     margin-bottom: 32px;
