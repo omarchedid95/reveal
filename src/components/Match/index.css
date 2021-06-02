@@ -9,6 +9,10 @@
     align-items: center;
     padding: 0px 0px 0px 32px;
 }
+.match-component-wrapper > header .match-action-button {
+    position: absolute;
+    right: 20px;
+}
 .match-component-wrapper > main {
     height: calc(100% - 120px);
     padding-top: 50px;
