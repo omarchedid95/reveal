@@ -70,7 +70,7 @@ class ImageUploader extends Component {
                 this.setState({
                     loading: false
                 });
-            }, 1000);
+            }, 500);
         })
     }
     // Upload the new image
@@ -86,7 +86,7 @@ class ImageUploader extends Component {
                     this.setState({
                         loading: false
                     });
-                }, 1000);
+                }, 500);
             })
         });
     }

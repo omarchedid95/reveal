@@ -38,7 +38,7 @@ export default class ProfilePicture extends Component {
             this.setState({
                 loading: false
             });
-        }, 1000);
+        }, 500);
     }
     handleError = () => {
         this.setState({
