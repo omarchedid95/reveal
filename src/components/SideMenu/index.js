@@ -4,9 +4,13 @@ import { Route, Switch, withRouter } from 'react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ChatsList from '../ChatsList'
 import SettingsList from '../SettingsList';
+import {storage} from '../../firebase';
 import './index.css';
 
 class SideMenu extends Component {
+    state = {
+        pictureURL: undefined
+    }
     changeMenuView = () => {
         const pathName = this.props.location.pathname;
         if (pathName === '/app') {
@@ -14,6 +18,17 @@ class SideMenu extends Component {
         } else {
             this.props.history.push('/app')
         }
+    }
+    componentDidMount = () => {
+        storage.ref(`/pictures/1/main`).getDownloadURL().then((url) => {
+            this.setState({
+                pictureURL: url
+            });
+        }).catch(() => {
+            this.setState({
+                pictureURL: undefined
+            });
+        });
     }
     render() {
         const pathName = this.props.location.pathname;
@@ -27,7 +42,11 @@ class SideMenu extends Component {
                                 <ArrowBackIcon />
                             </IconButton>
                         }
-                        <Avatar alt='profile-picture' src='https://picsum.photos/50' className='avatar'/>
+                        <Avatar
+                            src={this.state.pictureURL}
+                            alt='profile'
+                            className='avatar'
+                        />
                         <Typography variant='h5'>Omar</Typography>
                     </MenuItem>
                 </header>
