@@ -42,7 +42,9 @@ export default class Chat extends Component {
         }
     }
     render() {
-        const match = this.props.match;
+        const match = {
+            uuid:2
+        }
         const user = {
             uuid: 99,
             name: 'Omar'

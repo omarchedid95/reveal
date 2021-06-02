@@ -1,18 +1,22 @@
 .match-component-wrapper {
     height: 100%;
-    position: relative;
-    padding-top: 50px;
 }
-.match-component-wrapper .tabs {
+.match-component-wrapper > header {
+    height: 120px;
+    position: sticky;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    padding: 0px 0px 0px 32px;
+}
+.match-component-wrapper > main {
+    height: calc(100% - 120px);
+    padding-top: 50px;
+    position: relative;
+}
+.match-component-wrapper > main .tabs {
     height: 50px;
     width: 100%;
     position: absolute;
     top: 0;
-}
-.match-component-wrapper .chat-wrapper {
-    padding-top: 8px;
-    height: 100%;
-}
-.match-component-wrapper .profile-wrapper {
-    height: 100%;
 }

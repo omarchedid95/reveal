@@ -1,4 +1,4 @@
-import { Avatar, Divider, List, ListItem, ListItemAvatar, Typography } from '@material-ui/core'
+import { Avatar, Button, Divider, List, ListItem, ListItemAvatar, Typography } from '@material-ui/core'
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadMatches, selectMatch } from '../../redux/actions/matches/actions';
@@ -39,6 +39,9 @@ class MatchesList extends Component {
         const selectedMatch = this.props.selectedMatch;
         return (
             <div className='matches-list-component-wrapper'>
+                <Button fullWidth onClick={() => this.props.selectMatch(undefined)}>
+                    <Typography variant='h4'>Find Someone</Typography>
+                </Button>
                 {
                     matches.length > 0 &&
                     <List>

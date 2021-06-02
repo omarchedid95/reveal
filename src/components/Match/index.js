@@ -1,19 +1,13 @@
-import { Paper, Tab, Tabs } from '@material-ui/core'
+import { Divider, Tab, Tabs, Typography } from '@material-ui/core'
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import Chat from '../Chat';
 import MatchProfile from '../MatchProfile';
 import './index.css';
 
-export default class Match extends Component {
+class Match extends Component {
     state = {
         selectedTab: 0
-    }
-    componentDidUpdate = (prevProps) => {
-        if (this.props.match !== prevProps.match) {
-            this.setState({
-                selectedTab: 0
-            });
-        }
     }
     selectTab = (_, tab) => {
         this.setState({
@@ -21,36 +15,46 @@ export default class Match extends Component {
         });
     }
     render() {
-        // Get the selected match from redux
-        // const match = this.props.match;
-        const match = {
-            uuid: 1897234
-        }
+        const selectedMatch = this.props.selectedMatch;
+        const partner = selectedMatch.partner;
         return (
-            <Paper className='match-component-wrapper'>
-                <Tabs
-                    variant='fullWidth'
-                    indicatorColor='primary'
-                    value={this.state.selectedTab}
-                    onChange={this.selectTab}
-                    className='tabs'
-                >
-                    <Tab label='Chat' />
-                    <Tab label='Profile' />
-                </Tabs>
-                {
-                    this.state.selectedTab === 0 &&
-                    <div className='chat-wrapper'>
-                        <Chat match={match}/>
-                    </div>
-                }
-                {
-                    this.state.selectedTab === 1 &&
-                    <div className='profile-wrapper'>
+            <div className='match-component-wrapper'>
+                <header>
+                    <Typography variant='h4'>{partner.name}</Typography>
+                </header>
+                <Divider />
+                <main>
+                    <Tabs
+                        variant='fullWidth'
+                        indicatorColor='primary'
+                        value={this.state.selectedTab}
+                        onChange={this.selectTab}
+                        className='tabs'
+                    >
+                        <Tab label='Chat' />
+                        <Tab label='Profile' />
+                    </Tabs>
+                    {
+                        this.state.selectedTab === 0 &&
+                        <Chat />
+                    }
+                    {
+                        this.state.selectedTab === 1 &&
                         <MatchProfile />
-                    </div>
-                }
-            </Paper>
+                    }
+                </main>
+            </div>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        selectedMatch: state.matches.selectedMatch
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Match);
