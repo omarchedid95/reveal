@@ -17,6 +17,7 @@ class MainPage extends Component {
     }
     componentDidMount = () => {
         this.subscribeToUserProfile();
+        this.loadUserMatches();
         setTimeout(() => {
             this.setState({
                 loading: false

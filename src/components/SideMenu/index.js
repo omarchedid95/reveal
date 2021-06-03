@@ -6,6 +6,7 @@ import MatchesList from '../MatchesList'
 import SettingsList from '../SettingsList';
 import {storage} from '../../firebase';
 import './index.css';
+import { connect } from 'react-redux';
 
 class SideMenu extends Component {
     state = {
@@ -47,7 +48,7 @@ class SideMenu extends Component {
                             alt='profile'
                             className='avatar'
                         />
-                        <Typography variant='h5'>Omar</Typography>
+                        <Typography variant='h5'>{this.props.firstName}</Typography>
                     </MenuItem>
                 </header>
                 <Divider />
@@ -63,4 +64,9 @@ class SideMenu extends Component {
         )
     }
 }
-export default withRouter(SideMenu);
+const mapStateToProps = (state) => {
+    return {
+        firstName: state.profile.firstName
+    }
+}
+export default connect(mapStateToProps, null)(withRouter(SideMenu));
