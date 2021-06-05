@@ -64,7 +64,7 @@ class Chat extends Component {
                     this.setState({
                         loading: false
                     })
-                }, 1500);
+                }, 500);
             }
         })
     }
@@ -103,7 +103,6 @@ class Chat extends Component {
         }
     }
     render() {
-        const match = this.props.selectedMatch;
         if (this.state.loading) {
             return (
                 <div className='chat-component-wrapper'>
@@ -111,6 +110,7 @@ class Chat extends Component {
                 </div>
             )
         }
+        const match = this.props.selectedMatch;
         return (
             <div className='chat-component-wrapper'>
                 <section className='messages-section'>

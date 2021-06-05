@@ -10,9 +10,17 @@ class MatchesList extends Component {
         const selectedMatch = this.props.selectedMatch;
         return (
             <div className='matches-list-component-wrapper'>
-                <Button fullWidth onClick={() => this.props.selectMatch(undefined)}>
-                    <Typography variant='h4'>Find Someone</Typography>
-                </Button>
+                {
+                    selectMatch &&
+                    <div className='matchmaking-button-wrapper'>
+                        <Button
+                            variant='outlined'
+                            onClick={() => this.props.selectMatch(undefined)}>
+                            <Typography>Matchmaking</Typography>
+                        </Button>
+                    </div>
+                }
+                <Divider />
                 {
                     matches.length > 0 &&
                     <List>

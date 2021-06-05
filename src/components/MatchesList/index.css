@@ -1,5 +1,13 @@
 .matches-list-component-wrapper {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.matches-list-component-wrapper .matchmaking-button-wrapper {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .matches-list-component-wrapper .match-wrapper {
     height: 90px;
