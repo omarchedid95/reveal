@@ -37,7 +37,7 @@ class Match extends Component {
         return (
             <div className='match-component-wrapper'>
                 <header>
-                    <Typography variant='h4'>{partner.name}</Typography>
+                    <Typography variant='h4'>{partner.firstName}</Typography>
                     <IconButton
                         className='match-action-button'
                         onClick={this.openMenu}

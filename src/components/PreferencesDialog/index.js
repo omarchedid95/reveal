@@ -62,8 +62,8 @@ class PreferencesDialog extends Component {
     init = () => {
         this.setState({
             loading: false,
-            sexPreference: this.props.preferences.sexPreference,
-            agePreference: this.props.preferences.agePreference
+            sexPreference: this.props.sexPreference,
+            agePreference: this.props.agePreference
         })
     }
     render() {
@@ -165,7 +165,8 @@ class PreferencesDialog extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        preferences: state.profile.preferences
+        sexPreference: state.profile.sexPreference,
+        agePreference: state.profile.agePreference
     }
 }
 export default connect(mapStateToProps, null)(withMediaQuery(PreferencesDialog));

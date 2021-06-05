@@ -18,22 +18,22 @@ class MatchesList extends Component {
                     <List>
                         {
                             matches.map((match, index) => {
-                                const matchName = match.partner.name;
-                                const matchAvatarURL = match.partner.avatarURL;
+                                const partnerName = match.partner.firstName;
+                                const partnerAvatarURL = match.partner.profilePictureURL;
                                 const lastMessage = match.lastMessage;
                                 return (
                                     <div key={index}>
                                         <ListItem
-                                            selected={selectedMatch ? selectedMatch.chatId === match.chatId : false}
+                                            selected={selectedMatch ? selectedMatch.matchId === match.matchId : false}
                                             button
                                             onClick={() => this.props.selectMatch(match)}
                                             className='match-wrapper'
                                         >
                                             <ListItemAvatar className='avatar-wrapper'>
-                                                <Avatar className='avatar' alt='profile-picture' src={matchAvatarURL} />
+                                                <Avatar className='avatar' alt='profile-picture' src={partnerAvatarURL} />
                                             </ListItemAvatar>
                                             <section>
-                                                <Typography variant='h6' noWrap>{matchName}</Typography>
+                                                <Typography variant='h6' noWrap>{partnerName}</Typography>
                                                 <Typography noWrap>{lastMessage}</Typography>
                                             </section>
                                         </ListItem>

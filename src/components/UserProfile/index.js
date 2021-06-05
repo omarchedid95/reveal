@@ -28,7 +28,7 @@ class UserProfile extends Component {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
   render() {
-      const reveals = this.props.reveals;
+      const {reveal0, reveal1, reveal2, reveal3} = {...this.props};
       return (
           <div className='user-profile-component-wrapper'>
             <PreferencesDialog
@@ -59,16 +59,16 @@ class UserProfile extends Component {
               <section className='reveal-section'>
                   <Grid container spacing={6}>
                     <Grid item xs={12} md={6}>
-                      <Reveal reveal={reveals[0]} prompts={Prompts[0]}/>
+                      <Reveal reveal={reveal0} prompts={Prompts[0]}/>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <Reveal reveal={reveals[1]} prompts={Prompts[1]}/>
+                      <Reveal reveal={reveal1} prompts={Prompts[1]}/>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <Reveal reveal={reveals[2]} prompts={Prompts[2]}/>
+                      <Reveal reveal={reveal2} prompts={Prompts[2]}/>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <Reveal reveal={reveals[3]} prompts={Prompts[3]}/>
+                      <Reveal reveal={reveal3} prompts={Prompts[3]}/>
                     </Grid>
                   </Grid>
               </section>
@@ -102,47 +102,68 @@ class UserProfile extends Component {
   }
 }
 UserProfile.propTypes = {
-  reveals: PropTypes.arrayOf(
-    PropTypes.shape({
-      number: PropTypes.number.isRequired,
-      time: PropTypes.number.isRequired,
-      prompt: PropTypes.string.isRequired,
-      answer: PropTypes.string.isRequired
-  }))
+  reveal0: PropTypes.shape({
+    number: PropTypes.number.isRequired,
+    time: PropTypes.number.isRequired,
+    prompt: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired
+  }).isRequired,
+  reveal1: PropTypes.shape({
+    number: PropTypes.number.isRequired,
+    time: PropTypes.number.isRequired,
+    prompt: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired
+  }).isRequired,
+  reveal2: PropTypes.shape({
+    number: PropTypes.number.isRequired,
+    time: PropTypes.number.isRequired,
+    prompt: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired
+  }).isRequired,
+  reveal3: PropTypes.shape({
+    number: PropTypes.number.isRequired,
+    time: PropTypes.number.isRequired,
+    prompt: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired
+  }).isRequired,
+  firstName: PropTypes.string.isRequired,
+  dob: PropTypes.object.isRequired
+
 }
 UserProfile.defaultProps = {
-  reveals: [
-    {
+  reveal0: {
       number: 0,
       time: -1,
       prompt: 'prompt',
       answer: 'answer'
-    },
-    {
-      number: 1,
-      time: -1,
-      prompt: 'prompt',
-      answer: 'answer'
-    },
-    {
-      number: 2,
-      time: -1,
-      prompt: 'prompt',
-      answer: 'answer'
-    },
-    {
-      number: 3,
-      time: -1,
-      prompt: 'prompt',
-      answer: 'answer'
-    }
-  ]
+  },
+  reveal1: {
+    number: 1,
+    time: -1,
+    prompt: 'prompt',
+    answer: 'answer'
+  },
+  reveal2: {
+    number: 2,
+    time: -1,
+    prompt: 'prompt',
+    answer: 'answer'
+  },
+  reveal3: {
+    number: 3,
+    time: -1,
+    prompt: 'prompt',
+    answer: 'answer'
+  },
 }
 const mapStateToProps = (state) => {
   return {
-      reveals: state.profile.reveals,
       firstName: state.profile.firstName,
-      dob: state.profile.dob
+      dob: state.profile.dob,
+      reveal0: state.profile.reveal0,
+      reveal1: state.profile.reveal1,
+      reveal2: state.profile.reveal2,
+      reveal3: state.profile.reveal3
   }
 }
 export default connect(mapStateToProps, null)(withAuth(UserProfile));

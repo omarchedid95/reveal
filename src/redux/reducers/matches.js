@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 selectedMatch: action.match
             }
-        case actionTypes.MATCHES_LOAD_ALL:
+        case actionTypes.MATCHES_SYNC:
             return {
                 ...state,
                 matches: action.matches

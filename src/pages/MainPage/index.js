@@ -5,11 +5,12 @@ import UserProfile from '../../components/UserProfile';
 import Loading from '../../components/Loading';
 import { Paper } from '@material-ui/core';
 import { Route, Switch } from 'react-router';
-import {firestore} from '../../firebase';
+import { firestore } from '../../firebase';
 import { connect } from 'react-redux';
-import { loadMatches } from '../../redux/actions/matches/actions';
-import './index.css';
+import { syncMatches } from '../../redux/actions/matches/actions';
 import { syncProfile } from '../../redux/actions/profile/actions';
+import { sanitizeProfile } from '../../sanitize';
+import './index.css';
 
 class MainPage extends Component {
     state = {
@@ -17,7 +18,7 @@ class MainPage extends Component {
     }
     componentDidMount = () => {
         this.subscribeToUserProfile();
-        this.loadUserMatches();
+        this.subscribeToUserMatches();
         setTimeout(() => {
             this.setState({
                 loading: false
@@ -26,6 +27,7 @@ class MainPage extends Component {
     }
     componentWillUnmount = () => {
         this.unsubFromUserProfile();
+        this.unsubscribeFromUserMatches();
     }
     // Monitor any changes that happen to the user object and sync them immediately
     subscribeToUserProfile = () => {
@@ -34,66 +36,43 @@ class MainPage extends Component {
                 if (!doc.exists) {
                     throw Error('User does not exist')
                 }
-                const user = doc.data();
-                const firstName = user.firstName ? user.firstName : '';
-                const lastName = user.lastName ? user.lastName : '';
-                const dob = user.dob ? user.dob : new Date();
-                const reveal0 = user.reveal0 ? user.reveal0 : {number: 0, time: 1, prompt: '', answer: ''}
-                const reveal1 = user.reveal1 ? user.reveal1 : {number: 1, time: 3, prompt: '', answer: ''}
-                const reveal2 = user.reveal2 ? user.reveal2 : {number: 2, time: 7, prompt: '', answer: ''}
-                const reveal3 = user.reveal3 ? user.reveal3 : {number: 3, time: 10, prompt: '', answer: ''}
-                const preferences = {
-                    sexPreference: user.sexPreference ? user.sexPreference : 'anyone',
-                    agePreference: user.agePreference ? user.agePreference : [18, 30]
-                }
-                const profile = {
-                    firstName: firstName,
-                    lastName: lastName,
-                    dob: dob,
-                    reveals: [
-                    reveal0,
-                    reveal1,
-                    reveal2,
-                    reveal3,
-                    ],
-                    preferences: preferences
-                }
+                const profile = sanitizeProfile(doc.data());
                 this.props.syncProfile(profile);
             } catch (error) {
                 console.log(error)
             }
         })
-
     }
-    loadUserMatches = () => {
-        // Hook into firestore and keep getting a list of all the current matches in real time
-        // get these from /user/1/matches
-        this.props.loadMatches([
-            {
-                chatId: 1,
-                partner: {
-                    name: 'Omar',
-                    avatarURL: 'https://picsum.photos/50'
-                },
-                lastMessage: 'test'
-            },
-            {
-                chatId: 2,
-                partner: {
-                    name: 'Sarah',
-                    avatarURL: 'https://picsum.photos/50'
-                },
-                lastMessage: 'testing a longer message that takes space'
-            },
-            {
-                chatId: 3,
-                partner: {
-                    name: 'Alex',
-                    avatarURL: 'https://picsum.photos/50'
-                },
-                lastMessage: 'test'
+    // Monitor any changes that happen to the user matches and sync them immediately
+    subscribeToUserMatches = () => {
+        this.unsubscribeFromUserMatches = firestore.collection('match').where('members', 'array-contains', '1').orderBy('lastMessageDate', 'desc').onSnapshot((snapshot) => {
+            if (snapshot.empty) {
+                this.props.syncMatches([]);
+                return;
             }
-        ])
+            let matches = [];
+            snapshot.docs.forEach(async (doc) => {
+                const matchId = doc.id;
+                const match = doc.data();
+                const lastMessage = match.lastMessage;
+                const members = match.members;
+                const partnerId = members.filter((uuid) => uuid !== '1')[0];
+                // Get the profiles of the partner
+                await firestore.collection('user').doc(partnerId).get().then((doc) => {
+                    if (!doc.exists) {
+                        // Match deleted account
+                        return;
+                    }
+                    const profile = sanitizeProfile(doc.data());
+                    matches.push({
+                        matchId: matchId,
+                        lastMessage: lastMessage,
+                        partner: {uuid: partnerId, ...profile}
+                    });
+                })
+            })
+            this.props.syncMatches(matches);
+        });
     }
     render() {
         if (this.state.loading) {
@@ -122,7 +101,7 @@ class MainPage extends Component {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadMatches: (matches) => dispatch(loadMatches(matches)),
+        syncMatches: (matches) => dispatch(syncMatches(matches)),
         syncProfile: (profile) => dispatch(syncProfile(profile))
     }
 }

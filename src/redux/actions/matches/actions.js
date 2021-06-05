@@ -1,8 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const loadMatches = (matches) => {
+export const syncMatches = (matches) => {
     return {
-        type: actionTypes.MATCHES_LOAD_ALL,
+        type: actionTypes.MATCHES_SYNC,
         matches: matches
     }
 }

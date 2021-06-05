@@ -4,36 +4,32 @@ let initialState = {
     firstName: '',
     lastName: '',
     dob: new Date(),
-    reveals: [
-        {
-            number: 0,
-            time: 1,
-            prompt: '',
-            answer: ''
-        },
-        {
-            number: 1,
-            time: 3,
-            prompt: '',
-            answer: ''
-        },
-        {
-            number: 2,
-            time: 7,
-            prompt: '',
-            answer: ''
-        },
-        {
-            number: 3,
-            time: 10,
-            prompt: '',
-            answer: ''
-        }
-    ],
-    preferences: {
-        sexPreference: 'anyone',
-        agePreference: [18, 30]
-    }
+    reveal0: {
+        number: 0,
+        time: 1,
+        prompt: '',
+        answer: ''
+    },
+    reveal1: {
+        number: 1,
+        time: 3,
+        prompt: '',
+        answer: ''
+    },
+    reveal2: {
+        number: 2,
+        time: 7,
+        prompt: '',
+        answer: ''
+    },
+    reveal3: {
+        number: 3,
+        time: 10,
+        prompt: '',
+        answer: ''
+    },
+    sexPreference: 'anyone',
+    agePreference: [18, 30]
 }
 const reducer = (state = initialState, action) => {
     switch(action.type) {
@@ -43,8 +39,12 @@ const reducer = (state = initialState, action) => {
                 firstName: action.profile.firstName,
                 lastName: action.profile.lastName,
                 dob: action.profile.dob,
-                reveals: action.profile.reveals,
-                preferences: action.profile.preferences
+                reveal0: action.profile.reveal0,
+                reveal1: action.profile.reveal1,
+                reveal2: action.profile.reveal2,
+                reveal3: action.profile.reveal3,
+                sexPreference: action.profile.sexPreference,
+                agePreference: action.profile.agePreference
             }
         default:
             return state;
