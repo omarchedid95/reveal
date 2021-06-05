@@ -23,6 +23,7 @@ class MatchesList extends Component {
                                 const lastMessage = match.lastMessage;
                                 return (
                                     <div key={index}>
+                                        {/* TODO: turn this into a component because we need to use storage ref to load the avatarURL on mount */}
                                         <ListItem
                                             selected={selectedMatch ? selectedMatch.matchId === match.matchId : false}
                                             button

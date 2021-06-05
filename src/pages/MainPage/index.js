@@ -50,10 +50,12 @@ class MainPage extends Component {
                 this.props.syncMatches([]);
                 return;
             }
+            // TODO: handle last message changes
             let matches = [];
             snapshot.docs.forEach(async (doc) => {
                 const matchId = doc.id;
                 const match = doc.data();
+                console.log(match)
                 const lastMessage = match.lastMessage;
                 const members = match.members;
                 const partnerId = members.filter((uuid) => uuid !== '1')[0];
@@ -63,11 +65,12 @@ class MainPage extends Component {
                         // Match deleted account
                         return;
                     }
-                    const profile = sanitizeProfile(doc.data());
+                    let profile = sanitizeProfile(doc.data());
+                    profile.uuid = partnerId;
                     matches.push({
                         matchId: matchId,
                         lastMessage: lastMessage,
-                        partner: {uuid: partnerId, ...profile}
+                        partner: profile
                     });
                 })
             })

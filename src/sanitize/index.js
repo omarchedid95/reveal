@@ -174,6 +174,5 @@ export function sanitizeProfile(profile) {
     if (profile.hasOwnProperty('sexPreference')) {
         sanitizedProfile.sexPreference = sanitizeSexPreference(profile.sexPreference);
     }
-    console.log(sanitizedProfile)
     return sanitizedProfile;
 }

@@ -1,6 +1,7 @@
 import * as actionTypes from '../actions/profile/actionTypes';
 
 let initialState = {
+    uuid: '',
     firstName: '',
     lastName: '',
     dob: new Date(),
@@ -36,6 +37,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.PROFILE_SYNC:
             return {
                 ...state,
+                uuid: action.profile.uuid,
                 firstName: action.profile.firstName,
                 lastName: action.profile.lastName,
                 dob: action.profile.dob,

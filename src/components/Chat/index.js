@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 import Message from '../Message';
 import SendIcon from '@material-ui/icons/Send';
 import './index.css';
-export default class Chat extends Component {
+import { connect } from 'react-redux';
+import { firestore } from '../../firebase';
+class Chat extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,19 +14,68 @@ export default class Chat extends Component {
         }
         this.lastMessageRef = React.createRef();
     }
+    componentDidMount = () => {
+        this.subscribeToChat();
+    }
+    componentDidUpdate = (prevProps) => {
+        if (this.props.selectedMatch.matchId !== prevProps.selectedMatch.matchId) {
+            this.unsubscribeFromChat();
+            this.setState({
+                messages: [],
+                newMessage: ''
+            })
+            this.subscribeToChat();
+        }
+    }
+    componentWillUnmount = () => {
+        this.unsubscribeFromChat();
+    }
+    subscribeToChat = () => {
+        this.unsubscribeFromChat = firestore.collection('message').where('matchId', '==', this.props.selectedMatch.matchId).orderBy('timestamp').onSnapshot((snapshot) => {
+            if (snapshot.empty) {
+                // No messages
+                this.setState({
+                    messages: []
+                });
+            }
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === 'added') {
+                    const messageData = change.doc.data();
+                    const messageId = change.doc.id;
+                    const senderUUID = messageData.senderUUID;
+                    const content = messageData.content;
+                    const timestamp = messageData.timestamp;
+                    const message = {
+                        messageId: messageId,
+                        content: content,
+                        senderUUID: senderUUID,
+                        timestamp: timestamp
+                    }
+                    this.setState((state) => ({
+                        messages: [...state.messages, message]
+                    }));
+                }
+            })
+        })
+    }
     addMessage = () => {
         const message = this.state.message;
         if (message !== '') {
-            this.setState((state) => ({
-                messages: [...state.messages, {sender: {name: 'Omar', uuid: 99}, content: message, timeStamp: new Date()}],
-                message: ''
-            }));
-            setTimeout(() => {
-                this.setState((state) => ({
-                    messages: [...state.messages, {sender: {name: 'Grace', uuid: 1897234}, content: 'Testing', timeStamp: new Date()}],
+            firestore.collection('message').add({
+                content: message,
+                senderUUID: '1',
+                matchId: this.props.selectedMatch.matchId,
+                timestamp: Date.now()
+            }).then(() => {
+                firestore.collection('match').doc(this.props.selectedMatch.matchId).update({
+                    lastMessage: message
+                })
+                this.setState({
                     message: ''
-                }));
-            }, 2000);
+                })
+            }).catch((error) => {
+
+            })
         }
     }
     handleMessageChange = (e) => {
@@ -42,21 +93,15 @@ export default class Chat extends Component {
         }
     }
     render() {
-        const match = {
-            uuid:2
-        }
-        const user = {
-            uuid: 99,
-            name: 'Omar'
-        }
+        const match = this.props.selectedMatch;
         return (
             <div className='chat-component-wrapper'>
                 <section className='messages-section'>
                 {
                     this.state.messages.map((message, index) => {
-                        if (message.sender.uuid === match.uuid) {
+                        if (message.senderUUID === match.partner.uuid) {
                             return <Message key={index} message={message} state='received'/>;
-                        } else if (message.sender.uuid === user.uuid) {
+                        } else if (message.senderUUID === '1') {
                             return <Message key={index} message={message} state='sent'/>;
                         } else {
                             return null;
@@ -84,3 +129,9 @@ export default class Chat extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        selectedMatch: state.matches.selectedMatch
+    }
+}
+export default connect(mapStateToProps, null)(Chat);
