@@ -5,10 +5,12 @@ import SendIcon from '@material-ui/icons/Send';
 import './index.css';
 import { connect } from 'react-redux';
 import { firestore } from '../../firebase';
+import Loading from '../Loading';
 class Chat extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: true,
             messages: [],
             newMessage: ''
         }
@@ -21,6 +23,7 @@ class Chat extends Component {
         if (this.props.selectedMatch.matchId !== prevProps.selectedMatch.matchId) {
             this.unsubscribeFromChat();
             this.setState({
+                loading: true,
                 messages: [],
                 newMessage: ''
             })
@@ -55,7 +58,14 @@ class Chat extends Component {
                         messages: [...state.messages, message]
                     }));
                 }
-            })
+            });
+            if (this.state.loading) {
+                setTimeout(() => {
+                    this.setState({
+                        loading: false
+                    })
+                }, 1500);
+            }
         })
     }
     addMessage = () => {
@@ -94,6 +104,13 @@ class Chat extends Component {
     }
     render() {
         const match = this.props.selectedMatch;
+        if (this.state.loading) {
+            return (
+                <div className='chat-component-wrapper'>
+                    <Loading />
+                </div>
+            )
+        }
         return (
             <div className='chat-component-wrapper'>
                 <section className='messages-section'>

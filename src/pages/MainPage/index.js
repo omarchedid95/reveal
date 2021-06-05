@@ -7,7 +7,7 @@ import { Paper } from '@material-ui/core';
 import { Route, Switch } from 'react-router';
 import { firestore } from '../../firebase';
 import { connect } from 'react-redux';
-import { syncMatches } from '../../redux/actions/matches/actions';
+import { addMatch, deleteMatch, syncMatches, updateMatch } from '../../redux/actions/matches/actions';
 import { syncProfile } from '../../redux/actions/profile/actions';
 import { sanitizeProfile } from '../../sanitize';
 import './index.css';
@@ -50,31 +50,39 @@ class MainPage extends Component {
                 this.props.syncMatches([]);
                 return;
             }
-            // TODO: handle last message changes
-            let matches = [];
-            snapshot.docs.forEach(async (doc) => {
-                const matchId = doc.id;
-                const match = doc.data();
-                console.log(match)
-                const lastMessage = match.lastMessage;
-                const members = match.members;
+            snapshot.docChanges().forEach( async (change) => {
+                const matchId = change.doc.id;
+                const matchData = change.doc.data();
+                const {lastMessage, members} = matchData;
                 const partnerId = members.filter((uuid) => uuid !== '1')[0];
-                // Get the profiles of the partner
-                await firestore.collection('user').doc(partnerId).get().then((doc) => {
-                    if (!doc.exists) {
-                        // Match deleted account
-                        return;
-                    }
-                    let profile = sanitizeProfile(doc.data());
-                    profile.uuid = partnerId;
-                    matches.push({
-                        matchId: matchId,
-                        lastMessage: lastMessage,
-                        partner: profile
-                    });
-                })
+                if (change.type === 'added') {
+                    // Add a match. NOTE: will be fired on initial query
+                    // Get the profiles of the partner
+                    await firestore.collection('user').doc(partnerId).get().then((doc) => {
+                        if (!doc.exists) {
+                            // Match deleted account
+                            return;
+                        }
+                        let profile = sanitizeProfile(doc.data());
+                        profile.uuid = partnerId;
+                        this.props.addMatch({
+                            matchId: matchId,
+                            lastMessage: lastMessage,
+                            partner: profile
+                        });
+                    }).catch((error) => {
+                        // Could not get partner data
+                    })
+                }
+                if (change.type === 'modified') {
+                    // Update the last message in a match
+                    this.props.updateMatch(matchId, lastMessage);
+                }
+                if (change.type === 'removed') {
+                    // Delete a match
+                    this.props.deleteMatch(matchId);
+                }
             })
-            this.props.syncMatches(matches);
         });
     }
     render() {
@@ -105,6 +113,9 @@ class MainPage extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         syncMatches: (matches) => dispatch(syncMatches(matches)),
+        addMatch: (match) => dispatch(addMatch(match)),
+        deleteMatch: (matchId) => dispatch(deleteMatch(matchId)),
+        updateMatch: (matchId, lastMessage) => dispatch(updateMatch(matchId, lastMessage)),
         syncProfile: (profile) => dispatch(syncProfile(profile))
     }
 }

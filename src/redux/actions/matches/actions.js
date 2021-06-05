@@ -12,3 +12,22 @@ export const selectMatch = (match) => {
         match: match
     }
 }
+export const addMatch = (match) => {
+    return {
+        type: actionTypes.MATCHES_ADD_MATCH,
+        match: match
+    }
+}
+export const deleteMatch = (matchId) => {
+    return {
+        type: actionTypes.MATCHES_DELETE_MATCH,
+        matchId: matchId
+    }
+}
+export const updateMatch = (matchId, lastMessage) => {
+    return {
+        type: actionTypes.MATCHES_UPDATE_MATCH,
+        matchId: matchId,
+        lastMessage: lastMessage
+    }
+}
