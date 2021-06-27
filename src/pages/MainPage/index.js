@@ -11,10 +11,12 @@ import { addMatch, deleteMatch, syncMatches, updateMatch } from '../../redux/act
 import { syncProfile } from '../../redux/actions/profile/actions';
 import { sanitizeProfile } from '../../sanitize';
 import './index.css';
+import InstructionsDialog from '../../components/InstructionsDialog';
 
 class MainPage extends Component {
     state = {
-        loading: true
+        loading: true,
+        openInstructions: true
     }
     componentDidMount = () => {
         this.subscribeToUserProfile();
@@ -52,6 +54,17 @@ class MainPage extends Component {
             }
             snapshot.docChanges().forEach( async (change) => {
                 const matchId = change.doc.id;
+                // Prevent duplicate matches
+                let exists = false;
+                this.props.matches.forEach((match) => {
+                    if (match.matchId === matchId) {
+                        exists = true;
+                        return;
+                    }
+                });
+                if (exists) {
+                    return;
+                }
                 const matchData = change.doc.data();
                 const {lastMessage, members} = matchData;
                 const partnerId = members.filter((uuid) => uuid !== '1')[0];
@@ -85,6 +98,11 @@ class MainPage extends Component {
             })
         });
     }
+    toggleInstructions = () => {
+        this.setState((state) => ({
+            openInstructions: !state.openInstructions
+        }));
+    }
     render() {
         if (this.state.loading) {
             return (
@@ -95,6 +113,7 @@ class MainPage extends Component {
         }
         return (
             <Paper className='main-page-component-wrapper'>
+                <InstructionsDialog open={this.state.openInstructions} toggleDialog={this.toggleInstructions}/>
                 <aside>
                     <SideMenu />
                 </aside>
@@ -110,6 +129,11 @@ class MainPage extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        matches: state.matches.matches
+    }
+}
 const mapDispatchToProps = (dispatch) => {
     return {
         syncMatches: (matches) => dispatch(syncMatches(matches)),
@@ -119,4 +143,4 @@ const mapDispatchToProps = (dispatch) => {
         syncProfile: (profile) => dispatch(syncProfile(profile))
     }
 }
-export default connect(null, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

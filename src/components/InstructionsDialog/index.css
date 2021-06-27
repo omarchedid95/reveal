@@ -1,0 +1,6 @@
+.instructions-dialog-component-wrapper .actions-section {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
